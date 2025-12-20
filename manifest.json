@@ -1,0 +1,10 @@
+{
+  "name": "إمساكية الصعيدي 2026",
+  "short_name": "إمساكية",
+  "icons": [
+    { "src": "https://cdn-icons-png.flaticon.com/512/2271/2271100.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#1a4d2e"
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إمساكية رمضان 2026 - الصعيدي للأدوات الصحية</title>
+    <link rel="icon" type="image/PNG" href="ramadan-fanous.PNG">
+
+    <style>
+        :root { --primary: #1a4d2e; --accent: #d4af37; --bg: #fdfdfd; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #e2e8f0; margin: 0; padding: 20px; direction: rtl; }
+        .main-card { max-width: 900px; margin: auto; background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 15px solid var(--accent); }
+        
+        /* قسم الترحيب مع الفانوس على الجانبين */
+        .welcome-section { 
+            display: flex; align-items: center; justify-content: center; 
+            padding: 30px 10px; background: #fff; gap: 20px;
+        }
+        .welcome-section img { width: 60px; height: auto; }
+        .welcome-text { text-align: center; }
+        .welcome-text p { color: #555; font-size: 1.1rem; margin: 0; }
+        .welcome-text h2 { color: #2d6a4f; margin: 5px 0; font-size: 1.6rem; }
+
+        /* منطقة الوقت والعداد التنازلي */
+        .timer-zone { background: var(--primary); color: white; padding: 25px; text-align: center; }
+        #clock { font-size: 3.5rem; font-weight: bold; display: block; }
+        #countdown { color: var(--accent); font-size: 1.5rem; font-weight: bold; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+
+        /* الجدول المركزي */
+        .table-container { padding: 20px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th { background: var(--primary); color: white; padding: 15px; font-size: 0.95rem; }
+        td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; font-weight: 600; }
+        .maghrib-col { color: #e67e22; font-weight: 800; font-size: 1.1rem; }
+        tr:nth-child(even) { background: #f9f9f9; }
+
+        /* الهوية البصرية بالأسفل */
+        .footer-branding { text-align: center; padding: 40px 20px; background: #fafafa; border-top: 2px solid #eee; }
+        .footer-branding h1 { color: var(--primary); margin: 0; font-size: 2.2rem; }
+        .footer-branding .address { color: #555; margin: 10px 0; font-weight: bold; }
+        .contact-pills { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .pill { background: #fff; border: 2px solid var(--accent); padding: 8px 15px; border-radius: 30px; color: #c2410c; font-weight: bold; font-size: 0.9rem; }
+        .print-btn { margin-top: 20px; padding: 10px 30px; border-radius: 10px; background: #059669; color: white; border: none; cursor: pointer; font-weight: bold; }
+
+        @media (max-width: 600px) {
+            .welcome-section img { width: 40px; }
+            #clock { font-size: 2.5rem; }
+        }
+        @media print { .no-print { display: none; } }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <div class="welcome-section">
+        <img src="ramadan-fanous.PNG" alt="فانوس">
+        <div class="welcome-text">
+            <p>رمضان كريم وكل عام والأمة الإسلامية بخير</p>
+            <h2>إمساكية شهر رمضان 2026م - 1447هـ</h2>
+            <p>القاهرة الكبري وعلي السادة المقيمين خارجها مراعاة فروق التوقيت</p>
+        </div>
+        <img src="ramadan-fanous.PNG" alt="فانوس">
+    </div>
+
+    <div class="timer-zone">
+        <span id="clock">00:00:00</span>
+        <div id="countdown">جارٍ التحديث...</div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>رمضان</th><th>اليوم</th><th>ميلادي</th><th>الفجر</th><th>الشروق</th><th>الظهر</th><th>العصر</th><th>المغرب</th><th>العشاء</th>
+                </tr>
+            </thead>
+            <tbody id="ramadan-table"></tbody>
+        </table>
+    </div>
+
+    <div class="footer-branding">
+        <h1>الصعيدي للأدوات الصحية</h1>
+        <div class="address">مسجد الرحمن بشتيل امبابه بجوار سنترال بشتيل</div>
+        <div class="contact-pills">
+            <div class="pill">👤 حسن العدوي: 01122019099</div>
+            <div class="pill">👤 أحمد إدريس: 01129777012</div>
+        </div>
+        <div class="no-print">
+            <button class="print-btn" onclick="window.print()">طباعة الإمساكية 🖨️</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ramadanDays = [
+        {r:1, d:"الأربعاء", m:"18-02", fj:"05:09", sh:"06:32", dh:"12:08", as:"03:20", mg:"05:45", is:"07:45"},
+        {r:2, d:"الخميس", m:"19-02", fj:"05:09", sh:"06:31", dh:"12:08", as:"03:21", mg:"05:46", is:"07:46"},
+        {r:3, d:"الجمعة", m:"20-02", fj:"05:08", sh:"06:30", dh:"12:08", as:"03:21", mg:"05:47", is:"07:47"},
+        {r:4, d:"السبت", m:"21-02", fj:"05:07", sh:"06:29", dh:"12:08", as:"03:22", mg:"05:48", is:"07:48"},
+        {r:5, d:"الأحد", m:"22-02", fj:"05:06", sh:"06:28", dh:"12:08", as:"03:22", mg:"05:48", is:"07:48"},
+        {r:6, d:"الاثنين", m:"23-02", fj:"05:05", sh:"06:27", dh:"12:08", as:"03:23", mg:"05:49", is:"07:49"},
+        {r:7, d:"الثلاثاء", m:"24-02", fj:"05:04", sh:"06:26", dh:"12:08", as:"03:23", mg:"05:50", is:"07:50"},
+        {r:8, d:"الأربعاء", m:"25-02", fj:"05:03", sh:"06:25", dh:"12:08", as:"03:23", mg:"05:51", is:"07:51"},
+        {r:9, d:"الخميس", m:"26-02", fj:"05:02", sh:"06:24", dh:"12:07", as:"03:24", mg:"05:51", is:"07:51"},
+        {r:10, d:"الجمعة", m:"27-02", fj:"05:01", sh:"06:23", dh:"12:07", as:"03:24", mg:"05:52", is:"07:52"},
+        {r:11, d:"السبت", m:"28-02", fj:"05:00", sh:"06:22", dh:"12:07", as:"03:25", mg:"05:53", is:"07:53"},
+        {r:12, d:"الأحد", m:"01-03", fj:"04:59", sh:"06:21", dh:"12:07", as:"03:25", mg:"05:54", is:"07:54"},
+        {r:13, d:"الاثنين", m:"02-03", fj:"04:58", sh:"06:20", dh:"12:07", as:"03:25", mg:"05:54", is:"07:54"},
+        {r:14, d:"الثلاثاء", m:"03-03", fj:"04:57", sh:"06:19", dh:"12:07", as:"03:26", mg:"05:55", is:"07:55"},
+        {r:15, d:"الأربعاء", m:"04-03", fj:"04:56", sh:"06:18", dh:"12:06", as:"03:26", mg:"05:56", is:"07:56"},
+        {r:16, d:"الخميس", m:"05-03", fj:"04:55", sh:"06:16", dh:"12:06", as:"03:26", mg:"05:56", is:"07:56"},
+        {r:17, d:"الجمعة", m:"06-03", fj:"04:54", sh:"06:15", dh:"12:06", as:"03:26", mg:"05:57", is:"07:57"},
+        {r:18, d:"السبت", m:"07-03", fj:"04:52", sh:"06:14", dh:"12:06", as:"03:27", mg:"05:58", is:"07:58"},
+        {r:19, d:"الأحد", m:"08-03", fj:"04:51", sh:"06:13", dh:"12:05", as:"03:27", mg:"05:58", is:"07:58"},
+        {r:20, d:"الاثنين", m:"09-03", fj:"04:50", sh:"06:12", dh:"12:05", as:"03:27", mg:"05:59", is:"07:59"},
+        {r:21, d:"الثلاثاء", m:"10-03", fj:"04:49", sh:"06:11", dh:"12:05", as:"03:28", mg:"06:00", is:"08:00"},
+        {r:22, d:"الأربعاء", m:"11-03", fj:"04:48", sh:"06:09", dh:"12:05", as:"03:28", mg:"06:00", is:"08:00"},
+        {r:23, d:"الخميس", m:"12-03", fj:"04:47", sh:"06:08", dh:"12:04", as:"03:28", mg:"06:01", is:"08:01"},
+        {r:24, d:"الجمعة", m:"13-03", fj:"04:45", sh:"06:07", dh:"12:04", as:"03:28", mg:"06:02", is:"08:02"},
+        {r:25, d:"السبت", m:"14-03", fj:"04:44", sh:"06:06", dh:"12:04", as:"03:28", mg:"06:02", is:"08:02"},
+        {r:26, d:"الأحد", m:"15-03", fj:"04:43", sh:"06:05", dh:"12:04", as:"03:29", mg:"06:03", is:"08:03"},
+        {r:27, d:"الاثنين", m:"16-03", fj:"04:42", sh:"06:04", dh:"12:03", as:"03:29", mg:"06:03", is:"08:03"},
+        {r:28, d:"الثلاثاء", m:"17-03", fj:"04:40", sh:"06:02", dh:"12:03", as:"03:29", mg:"06:04", is:"08:04"},
+        {r:29, d:"الأربعاء", m:"18-03", fj:"04:39", sh:"06:01", dh:"12:03", as:"03:29", mg:"06:05", is:"08:05"}
+    ];
+
+    function updateUI() {
+        const table = document.getElementById('ramadan-table');
+        table.innerHTML = ramadanDays.map(day => `
+            <tr>
+                <td>${day.r}</td><td>${day.d}</td><td>${day.m}</td>
+                <td>${day.fj}</td><td>${day.sh}</td><td>${day.dh}</td><td>${day.as}</td>
+                <td class="maghrib-col">${day.mg}</td><td>${day.is}</td>
+            </tr>
+        `).join('');
+    }
+
+    function startLiveSystem() {
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('ar-EG');
+            
+            const todayStr = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            const currentDay = ramadanDays.find(d => d.m === todayStr);
+            const countdownElem = document.getElementById('countdown');
+
+            if (currentDay) {
+                // نحن الآن في رمضان - عداد المغرب
+                const [h, m] = currentDay.mg.split(':').map(Number);
+                const maghribDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+                let diff = maghribDate - now;
+
+                if (diff < 0) {
+                    countdownElem.innerText = "تقبل الله صيامكم - حان وقت الإفطار";
+                } else {
+                    const hours = Math.floor(diff / 3600000);
+                    const minutes = Math.floor((diff % 3600000) / 60000);
+                    const seconds = Math.floor((diff % 60000) / 1000);
+                    countdownElem.innerText = `باقي على أذان المغرب: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+            } else {
+                // نحن قبل رمضان - عداد الأيام المتبقية للشهر الفضيل
+                const ramadanStart = new Date(2026, 1, 18); // 18 فبراير 2026
+                const diffToRamadan = ramadanStart - now;
+                
+                if (diffToRamadan > 0) {
+                    const days = Math.floor(diffToRamadan / (1000 * 60 * 60 * 24));
+                    countdownElem.innerText = `باقي على شهر رمضان المبارك: ${days} يوم تقريباً`;
+                } else {
+                    countdownElem.innerText = "كل عام وأنتم بخير - انتهى موسم رمضان 2026";
+                }
+            }
+        }, 1000);
+    }
+
+    window.onload = () => { updateUI(); startLiveSystem(); };
+</script>
+</body>
+</html>
