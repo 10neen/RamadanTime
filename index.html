@@ -29,6 +29,7 @@
             max-width: 950px; margin: 20px auto; 
             background: var(--glass); border-radius: 40px; 
             overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .header-container {
@@ -40,13 +41,14 @@
             flex: 1; background: #fff; border-radius: 20px;
             padding: 15px; text-align: center;
             border: 2px solid #eef2f3; border-bottom: 4px solid #d4af37;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
         
         .date-tile .label { 
             background: var(--primary-grad); color: white; 
             padding: 4px 12px; border-radius: 10px; font-size: 0.8rem; 
         }
-        .date-tile .value { display: block; font-weight: 800; color: #1a4d2e; font-size: 1.1rem; margin-top: 5px; }
+        .date-tile .value { display: block; font-weight: 800; color: #1a4d2e; font-size: 1.1rem; margin-top: 8px; }
 
         .brand-box { flex: 1.5; text-align: center; }
         .brand-box h1 { margin: 0; color: #1a4d2e; font-size: 1.6rem; }
@@ -59,12 +61,11 @@
 
         .table-wrapper { padding: 0 30px 30px; overflow-x: auto; max-height: 500px; }
         table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 750px; }
-        thead th { color: #1a4d2e; padding: 15px; position: sticky; top: 0; background: #fff; }
-        tbody tr { background: white; }
+        thead th { color: #1a4d2e; padding: 15px; position: sticky; top: 0; background: #fff; z-index: 10; }
+        tbody tr { background: white; transition: 0.2s; }
         td { padding: 12px; text-align: center; font-weight: 600; }
         .highlight { color: #e67e22; background: #fff4eb; font-weight: 800; border-radius: 10px; }
 
-        /* تأثير حركة الفوانيس */
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.1); opacity: 1; }
@@ -89,6 +90,7 @@
         @media (max-width: 768px) {
             .header-container { flex-direction: column; }
             .date-tile { width: 100%; }
+            .top-clock-bar { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -105,8 +107,8 @@
 
         <div class="brand-box">
             <h1>إمساكية رمضان 2026</h1>
-            <p>الصعيدي للأدوات الصحية</p>
-            <div style="font-size: 0.85rem; color: #555; font-weight: bold;">مسجد الرحمن - بشتيل</div>
+            <p>معرض الصعيدي للأدوات الصحية</p>
+            <div style="font-size: 0.85rem; color: #555; font-weight: bold;">شارع مسجد الرحمن - بشتيل</div>
         </div>
 
         <div class="date-tile">
@@ -134,7 +136,7 @@
         <img src="ramadan-fanous.PNG" class="fanous-img" alt="فانوس">
         <div style="text-align: center;">
             <div style="font-weight: 900; color: #1a4d2e;">📍 مع تحيات الصعيدي للأدوات الصحية</div>
-            <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">شارع مسجد الرحمن - بجوار سنترال بشتيل</div>
+            <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">بجوار سنترال بشتيل - الجيزة</div>
         </div>
         <img src="ramadan-fanous.PNG" class="fanous-img" alt="فانوس">
     </div>
@@ -146,7 +148,7 @@
 </div>
 
 <script>
-    const data = [
+    const ramadanData = [
         {r:1, d:"الأربعاء", m:"18-02", fj:"05:09", sh:"06:32", dh:"12:08", as:"03:20", mg:"05:45", is:"07:02"},
         {r:2, d:"الخميس", m:"19-02", fj:"05:08", sh:"06:31", dh:"12:08", as:"03:21", mg:"05:46", is:"07:03"},
         {r:3, d:"الجمعة", m:"20-02", fj:"05:07", sh:"06:30", dh:"12:08", as:"03:21", mg:"05:47", is:"07:04"},
@@ -180,32 +182,56 @@
 
     function update() {
         const now = new Date();
+        // الساعة الحية
         document.getElementById('live-clock').innerText = now.toLocaleTimeString('ar-EG');
-        document.getElementById('greg-val').innerText = now.toLocaleDateString('ar-EG', {day:'numeric', month:'long', weekday:'short'});
-        document.getElementById('hijri-val').innerText = now.toLocaleDateString('ar-SA-u-ca-islamic-uma', {day:'numeric', month:'long'});
+        
+        // التاريخ الميلادي
+        const mOptions = { day: 'numeric', month: 'long', weekday: 'short' };
+        document.getElementById('greg-val').innerText = now.toLocaleDateString('ar-EG', mOptions);
 
+        // التاريخ الهجري (حل مشكلة الموبايل)
         const todayStr = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-        const day = data.find(x => x.m === todayStr);
-        const status = document.getElementById('status-text');
+        const ramadanDay = ramadanData.find(x => x.m === todayStr);
+        
+        if (ramadanDay) {
+            document.getElementById('hijri-val').innerText = `${ramadanDay.r} رمضان 1447`;
+        } else {
+            try {
+                // محاولة الحساب العادي
+                let hDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma-nu-latn', {day:'numeric', month:'long'}).format(now);
+                document.getElementById('hijri-val').innerText = hDate;
+            } catch (e) {
+                // إذا فشل المتصفح (مثل بعض الموبايلات القديمة) يعرض التاريخ التقريبي يدوياً
+                document.getElementById('hijri-val').innerText = "22 جمادى الآخرة"; 
+            }
+        }
 
-        if (day) {
-            const [h, m] = day.mg.split(':').map(Number);
+        // تحديث العداد
+        const status = document.getElementById('status-text');
+        if (ramadanDay) {
+            const [h, m] = ramadanDay.mg.split(':').map(Number);
             const maghrib = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
             let diff = maghrib - now;
             if (diff > 0) {
                 const hrs = Math.floor(diff / 3600000);
                 const mins = Math.floor((diff % 3600000) / 60000);
                 status.innerText = `⏳ باقي على أذان المغرب: ${hrs} ساعة و ${mins} دقيقة`;
-            } else { status.innerText = "🌙 تقبل الله صيامكم"; }
+            } else { status.innerText = "🌙 تقبل الله صيامكم - وقت الإفطار"; }
         } else {
-            const daysLeft = Math.floor((new Date(2026, 1, 18) - now) / (1000*60*60*24));
-            status.innerText = `🌙 باقي على رمضان: ${daysLeft} يوم`;
+            const start = new Date(2026, 1, 18);
+            const daysLeft = Math.ceil((start - now) / (1000 * 60 * 60 * 24));
+            status.innerText = `🌙 باقي على شهر رمضان المبارك: ${daysLeft} يوم`;
         }
     }
 
     window.onload = () => {
-        document.getElementById('data-table').innerHTML = data.map(r => `
-            <tr><td>${r.r}</td><td>${r.d}</td><td>${r.m}</td><td>${r.fj}</td><td>${r.sh}</td><td>${r.dh}</td><td>${r.as}</td><td class="highlight">${r.mg}</td><td>${r.is}</td></tr>
+        const table = document.getElementById('data-table');
+        table.innerHTML = ramadanData.map(row => `
+            <tr>
+                <td>${row.r}</td><td>${row.d}</td><td>${row.m}</td>
+                <td>${row.fj}</td><td>${row.sh}</td><td>${row.dh}</td><td>${row.as}</td>
+                <td class="highlight">${row.mg}</td><td>${row.is}</td>
+            </tr>
         `).join('');
         setInterval(update, 1000);
         update();
