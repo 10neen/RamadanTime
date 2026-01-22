@@ -1,0 +1,15 @@
+{
+  "short_name": "إمساكية 2026",
+  "name": "إمساكية رمضان 1447هـ - الصعيدي",
+  "icons": [
+    {
+      "src": "ramadan-fanous.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1a2a6c",
+  "background_color": "#ffffff"
+}

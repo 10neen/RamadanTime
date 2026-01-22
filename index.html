@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إمساكية رمضان 2026 - الصعيدي للأدوات الصحية</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <meta property="og:title" content="إمساكية رمضان 1447هـ - 2026م">
+    <meta property="og:description" content="تطبيق إمساكية رمضان، سبحة إلكترونية، ومصحف شريف">
+    <meta property="og:image" content="link-to-your-thumbnail.png">
+</head>
+<body>
+
+    <header>
+        <h1>رمضان كريم</h1>
+        <p>إهداء من: <strong>الصعيدي للأدوات الصحية (حسن العدوي وأحمد إدريس)</strong></p>
+        <p style="font-size: 0.9rem;">بجوار سنترال بشتيل - إمبابة</p>
+
+        <div id="next-prayer-container" class="countdown-box">
+            <div id="next-prayer-name">جاري تحديد الصلاة القادمة...</div>
+            <div id="countdown-timer">00:00:00</div>
+        </div>
+    </header>
+
+    <nav>
+        <button onclick="showSection('imsakeya')">📅 الإمساكية</button>
+        <button onclick="showSection('sebha')">📿 السبحة</button>
+        <button onclick="showSection('quran')">📖 المصحف</button>
+    </nav>
+
+    <section id="imsakeya">
+        <h2 class="section-title">إمساكية رمضان 1447هـ / 2026م</h2>
+        <div id="prayer-times" class="table-container"></div>
+    </section>
+
+    <section id="sebha" style="display:none;">
+        <h2 class="section-title">السبحة الإلكترونية</h2>
+        <div class="sebha-box">
+            <div id="sebha-text">سبحان الله</div>
+            <div id="sebha-count">0</div>
+            <div class="sebha-controls">
+                <button id="sebha-btn">اضغط للتسبيح</button>
+                <button id="sebha-reset" class="reset-btn" onclick="resetSebha()">تصفير</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="quran" style="display:none;">
+        <h2 class="section-title">المصحف الشريف</h2>
+        <div class="quran-controls">
+            <select id="surah-select" onchange="fetchSurah(this.value)">
+                <option value="">اختر السورة...</option>
+            </select>
+        </div>
+        <div id="quran-viewer" class="quran-paper">
+            <p style="text-align: center; color: #888;">من فضلك اختر سورة لبدء القراءة</p>
+        </div>
+    </section>
+
+    <div id="tafseer-sidebar" class="tafseer-sidebar">
+        <div class="tafseer-header">
+            <button onclick="closeTafseer()" class="close-btn">&times;</button>
+            <h3 id="tafseer-title">تفسير الآية</h3>
+        </div>
+        <hr>
+        <div id="tafseer-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
