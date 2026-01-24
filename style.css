@@ -133,14 +133,178 @@ section {
     font-family: monospace; 
 }
 
-/* السبحة والمصحف */
-.sebha-box { text-align: center; padding: 20px; }
-#sebha-count { font-size: 4rem; font-weight: bold; color: var(--gold); }
-#sebha-btn { width: 120px; height: 120px; border-radius: 50%; border: 6px solid var(--gold); background: var(--navy); color: white; cursor: pointer; }
 
-.quran-paper { background: #fffcf5; padding: 15px; border-radius: 10px; line-height: 2.2; font-size: 1.3rem; text-align: center; border: 1px solid #e0d7bc; }
-.tafseer-sidebar { position: fixed; top: 0; right: -100%; width: 85%; max-width: 320px; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 20px; box-shadow: -5px 0 20px rgba(0,0,0,0.3); overflow-y: auto; }
-.tafseer-sidebar.active { right: 0; }
+/* حاوية السبحة الأساسية */
+.sebha-box {
+    text-align: center;
+    padding: 30px 15px;
+    background: #e2d2b0; /* لون الورق القديم المتناسق */
+    border-radius: 20px;
+    border: 3px double #8e7341;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.15);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+/* نص الذكر الحالي */
+#sebha-text {
+    font-size: 2.2rem; /* تكبير الخط */
+    color: #5d4037; /* بني غامق فخم */
+    font-family: 'Amiri', serif;
+    min-height: 80px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+}
+
+/* دائرة العداد الرقمي */
+#sebha-count {
+    width: 120px;
+    height: 120px;
+    line-height: 110px;
+    margin: 0 auto 25px;
+    background: radial-gradient(circle, #fdf6e3 0%, #d4c19d 100%);
+    border: 5px solid #8e7341;
+    border-radius: 50%;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* زر التسبيح الأساسي */
+#sebha-btn {
+    display: block;
+    width: 80%;
+    margin: 0 auto 15px;
+    background: linear-gradient(135deg, #8e7341 0%, #b8860b 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(142, 115, 65, 0.4);
+    transition: 0.2s;
+}
+
+#sebha-btn:active {
+    transform: scale(0.95);
+}
+
+/* زر التصفير المنسق */
+.reset-btn {
+    background: transparent;
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    padding: 6px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.reset-btn:hover {
+    background: #d32f2f;
+    color: white;
+}
+
+
+.azkar-options {
+    margin-top: 25px;
+    padding: 15px;
+    background: rgba(142, 115, 65, 0.1);
+    border-radius: 15px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* زرين في كل صف */
+    gap: 10px;
+}
+
+.opt-btn {
+    background: #fdf6e3;
+    border: 1px solid #d4c19d;
+    color: #5d4037;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'Amiri', serif;
+    transition: 0.3s;
+}
+
+.opt-btn:hover {
+    background: #e2d2b0;
+}
+
+.active-opt {
+    background: #8e7341 !important;
+    color: #fff !important;
+    border-color: #5d4037;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* الوضع الليلي للأزرار */
+body.night-mode-active .opt-btn {
+    background: #1e1e1e;
+    color: #ffda79;
+    border-color: #444;
+}
+body.night-mode-active .active-opt {
+    background: #ffda79 !important;
+    color: #121212 !important;
+}
+
+
+/* تنسيق ورقة المصحف */
+.quran-paper {
+    background: #fffcf5;
+    border: 2px solid #e0d7bc;
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 400px;
+    transition: all 0.3s ease;
+    color: #333; /* لضمان ظهور النص */
+}
+
+/* الوضع الليلي للمصحف - حل مشكلة السواد في الصور */
+body.dark-mode .quran-paper {
+    background: #222 !important;
+    color: #eee !important;
+    border-color: #444;
+}
+
+body.dark-mode .ayah-content {
+    color: #eee !important;
+}
+
+/* الأذكار الجانبية (كما رسمتها في الصورة) */
+.azkar-side {
+    position: absolute;
+    top: 100px;
+    width: 120px;
+    padding: 10px;
+    background: rgba(142, 115, 65, 0.1);
+    border: 1px dashed #8e7341;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #8e7341;
+}
+.azkar-right { right: -140px; }
+.azkar-left { left: -140px; }
+
+/* استجابة الموبايل */
+@media (max-width: 1200px) {
+    .azkar-side { display: none; } /* تختفي في الشاشات الصغيرة لتجنب الزحام */
+}
+
+
 
 /* تأثير الوميض */
 .prayer-now { animation: flash 1s infinite; color: #27ae60 !important; }
@@ -151,4 +315,298 @@ section {
     .prayer-table th, .prayer-table td { font-size: 11px; padding: 6px 1px; }
     #countdown-timer { font-size: 1.8rem; }
     nav button { padding: 8px 10px; font-size: 12px; }
+}
+
+/* استدعاء خط مخصص للمصحف */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+/* تنسيق الورق القديم (الوضع النهاري) */
+.quran-text-final {
+    direction: rtl;
+    padding: 30px;
+    /* لون بيج غامق يشبه الورق القديم */
+    background-color: #e2d2b0 !important; 
+    border: 2px solid #c5b38a;
+    border-radius: 12px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* النص الأسود الواضح في الوضع النهاري */
+.quran-text-final .quran-p-tag {
+    color: #1a1a1a !important; /* أسود ملكي */
+    font-family: 'Amiri', serif;
+    font-weight: 500;
+}
+
+/* أرقام الآيات بالأسود في الوضع النهاري لزيادة التباين */
+.quran-text-final .ayah-mark {
+    color: #000000 !important;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+/* البسملة بلون بني محروق لتبدو كأنها حبر قديم */
+.quran-text-final .basmalah-v2 {
+    color: #5d4037 !important;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* --- الوضع الليلي (يظل كما هو ذهبي في أخضر) --- */
+.quran-text-final.dark-mode {
+    background-color: #121212 !important;
+    box-shadow: none;
+}
+
+.quran-text-final.dark-mode .ayah-content {
+    color: #ffda79 !important; /* ذهبي */
+}
+
+.quran-text-final.dark-mode .ayah-mark {
+    color: #2ecc71 !important; /* أخضر */
+}
+
+
+
+.quran-p-tag {
+    font-family: 'Amiri', serif; /* الخط الذي يظهر علامات الوقف والمد */
+    font-size: 1.9rem;
+    line-height: 2.8;
+    text-align: justify;
+    color: #1a1a1a;
+}
+
+.basmalah-v2 {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #8e7341;
+    margin-bottom: 25px;
+}
+
+.ayah-mark {
+    font-family: 'Amiri', serif;
+    color: #8e7341;
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin: 0 4px;
+}
+
+/* تحسين شكل علامات الوقف الصغيرة */
+.ayah-content {
+    word-spacing: 2px;
+}
+
+/* تنسيق أزرار التحكم */
+.quran-tools {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.quran-tools button {
+    background: #f0e6cc;
+    border: 1px solid #8e7341;
+    color: #8e7341;
+    padding: 5px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.quran-tools button:hover {
+    background: #8e7341;
+    color: #fff;
+}
+
+
+/* وضع القراءة الليلي الفخم */
+.quran-text-final.dark-mode {
+    background-color: #1a1a1a !important; /* أسود كربوني */
+    border-color: #333 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* لون الآيات ذهبي في الوضع الليلي */
+.quran-text-final.dark-mode .ayah-content {
+    color: #ffda79 !important; /* ذهبي فاتح وواضح */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* لون أرقام الآيات أخضر في الوضع الليلي */
+.quran-text-final.dark-mode .ayah-mark {
+    color: #2ecc71 !important; /* أخضر زمردي */
+    font-weight: bold;
+}
+
+/* لون البسملة */
+.quran-text-final.dark-mode .basmalah-v2 {
+    color: #f1c40f !important;
+}
+
+/* تنسيق أزرار التحكم لتكون ثابتة وواضحة */
+.quran-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* --- نافذة التفسير الجانبية --- */
+.tafseer-sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* مخفية تماماً جهة اليمين */
+    width: 350px;
+    max-width: 90%;
+    height: 100%;
+    background: #fffcf5; /* لون ورقي */
+    box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+    z-index: 2000;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid var(--gold);
+}
+
+/* عندما تكون النافذة مفتوحة */
+.tafseer-sidebar.active {
+    right: 0;
+}
+
+.tafseer-header {
+    background: var(--navy);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tafseer-header h3 { margin: 0; font-size: 1.2rem; }
+
+.close-btn {
+    background: var(--gold);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+#tafseer-content {
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #444;
+    text-align: justify;
+}
+
+/* تحسين شكل الآية القابلة للضغط في المصحف */
+.ayah-content {
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 2px 0;
+}
+
+.ayah-content:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+}
+
+/* الوضع الليلي للتفسير */
+body.dark-mode .tafseer-sidebar {
+    background: #1e1e1e;
+    color: #eee;
+    border-left-color: #ffda79;
+}
+
+body.dark-mode #tafseer-content {
+    color: #ddd;
+}
+
+/* تنسيق قسم العيد */
+.eid-section {
+    text-align: center;
+    margin: 30px 0;
+}
+.eid-card {
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border: 2px solid #fff;
+}
+.eid-time {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* تذييل الصفحة البروفيشنال */
+.pro-footer {
+    background: #1a2a6c; /* كحلي ملكي */
+    color: #fff;
+    padding: 30px 20px;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    border-top: 4px solid #d4af37;
+    margin-top: 40px;
+}
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 5px;
+}
+.tagline { font-size: 1.1rem; opacity: 0.9; }
+.service-area {
+    background: rgba(212, 175, 55, 0.2);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    border: 1px inset #d4af37;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+.contact-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+}
+.contact-item span { display: block; font-size: 0.8rem; color: #d4af37; }
+.contact-item a { 
+    color: #fff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 1.1rem;
+}
+
+.location-box {
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    padding-top: 15px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.gold-hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 40px 0;
 }
