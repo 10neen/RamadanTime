@@ -4,23 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إمساكية رمضان 2026 - الصعيدي للأدوات الصحية</title>
-    
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    
-    <meta property="og:title" content="إمساكية رمضان 1447هـ - 2026م">
-    <meta property="og:description" content="تطبيق إمساكية رمضان، سبحة إلكترونية، ومصحف شريف">
-    <meta property="og:image" content="link-to-your-thumbnail.png">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <h1>رمضان كريم</h1>
-        <p>إهداء من: <strong>الصعيدي للأدوات الصحية (حسن العدوي وأحمد إدريس)</strong></p>
-        <p style="font-size: 0.9rem;">بجوار سنترال بشتيل - إمبابة</p>
+        <h1>🌙 رمضان كريم</h1>
+        <p>إهداء من: <strong>الصعيدي للأدوات الصحية</strong></p>
+        <p style="font-size: 0.8rem; opacity: 0.9;">حسن العدوي وأحمد إدريس - بشتيل</p>
 
         <div id="next-prayer-container" class="countdown-box">
-            <div id="next-prayer-name">جاري تحديد الصلاة القادمة...</div>
+            <div id="next-prayer-name">جاري التحديد...</div>
             <div id="countdown-timer">00:00:00</div>
         </div>
     </header>
@@ -32,41 +27,94 @@
     </nav>
 
     <section id="imsakeya">
-        <h2 class="section-title">إمساكية رمضان 1447هـ / 2026م</h2>
+        <h2 class="section-title">إمساكية رمضان 2026</h2>
         <div id="prayer-times" class="table-container"></div>
+		
+		
+		<div class="eid-section">
+    <div class="eid-card">
+        <h3>🎊 موعد صلاة عيد الفطر المبارك 🎊</h3>
+        <p>يوم الجمعة 20 مارس 2026 (تقريباً)</p>
+        <div class="eid-time">الساعة 06:04 صباحاً</div>
+        <small>طبقاً لمدينة القاهرة وضواحيها</small>
+    </div>
+</div>
+
+<hr class="gold-hr">
+
+<footer class="pro-footer">
+    <div class="brand-name">الصعيدي للأدوات الصحية</div>
+    <div class="tagline">مسجد الرحمن - بشتيل - إمبابة</div>
+    <div class="service-area">توزيع جملة القاهرة الكبرى وضواحيها</div>
+    
+    <div class="contact-grid">
+        <div class="contact-item">
+            <span>أ/ حسن العدوي</span>
+            <a href="tel:01122019099">01122019099</a>
+        </div>
+        <div class="contact-item">
+            <span>أ/ أحمد إدريس</span>
+            <a href="tel:01129777012">01129777012</a>
+        </div>
+    </div>
+
+    <div class="location-box">
+        📍 المعرض: شارع مسجد الرحمن - بجوار سنترال بشتيل
+    </div>
+</footer>
+		
+		
+		
     </section>
 
     <section id="sebha" style="display:none;">
-        <h2 class="section-title">السبحة الإلكترونية</h2>
+        <h2 class="section-title">السبحة الإلكترونية والأذكار</h2>
         <div class="sebha-box">
-            <div id="sebha-text">سبحان الله</div>
+            <div id="sebha-text">اضغط على الزر للبدء</div>
             <div id="sebha-count">0</div>
             <div class="sebha-controls">
-                <button id="sebha-btn">اضغط للتسبيح</button>
+                <button id="sebha-btn">سبّح</button>
                 <button id="sebha-reset" class="reset-btn" onclick="resetSebha()">تصفير</button>
             </div>
+        </div>
+		
+        <div class="azkar-options">
+            <p style="text-align:center; color:#5d4037; font-weight:bold; margin-bottom:10px;">اختر الورد اليومي:</p>
+			
+			
+            <div class="options-grid">
+                <button onclick="setAzkar('sunna')" class="opt-btn active-opt">تسبيح الصلاة</button>
+                <button onclick="setAzkar('sabah')" class="opt-btn">☀️ أذكار الصباح</button>
+                <button onclick="setAzkar('masa')" class="opt-btn">🌙 أذكار المساء</button>
+                <button onclick="setAzkar('estighfar')" class="opt-btn">استغفار</button>
+                <button onclick="setAzkar('salat')" class="opt-btn">الصلاة على النبي</button>
+                <button onclick="setAzkar('hawqala')" class="opt-btn">حوقلة</button>
+				
+				
+            </div>
+			
+			
         </div>
     </section>
 
     <section id="quran" style="display:none;">
         <h2 class="section-title">المصحف الشريف</h2>
-        <div class="quran-controls">
-            <select id="surah-select" onchange="fetchSurah(this.value)">
+        <div class="quran-controls" style="text-align: center;">
+            <select id="surah-select" onchange="fetchSurah(this.value)" style="width: 80%; padding: 10px; border-radius: 8px;">
                 <option value="">اختر السورة...</option>
             </select>
         </div>
         <div id="quran-viewer" class="quran-paper">
-            <p style="text-align: center; color: #888;">من فضلك اختر سورة لبدء القراءة</p>
+            <p style="text-align: center; color: #888; padding: 20px;">اختر سورة لبدء القراءة بنظام السرد</p>
         </div>
     </section>
 
     <div id="tafseer-sidebar" class="tafseer-sidebar">
         <div class="tafseer-header">
             <button onclick="closeTafseer()" class="close-btn">&times;</button>
-            <h3 id="tafseer-title">تفسير الآية</h3>
+            <h3 id="tafseer-title">التفسير الميسر</h3>
         </div>
-        <hr>
-        <div id="tafseer-content"></div>
+        <div id="tafseer-content" style="padding: 15px; line-height: 1.8;"></div>
     </div>
 
     <script src="script.js"></script>
