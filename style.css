@@ -304,8 +304,6 @@ body.dark-mode .ayah-content {
     .azkar-side { display: none; } /* تختفي في الشاشات الصغيرة لتجنب الزحام */
 }
 
-
-
 /* تأثير الوميض */
 .prayer-now { animation: flash 1s infinite; color: #27ae60 !important; }
 @keyframes flash { 50% { opacity: 0.5; } }
@@ -367,8 +365,6 @@ body.dark-mode .ayah-content {
 .quran-text-final.dark-mode .ayah-mark {
     color: #2ecc71 !important; /* أخضر */
 }
-
-
 
 .quran-p-tag {
     font-family: 'Amiri', serif; /* الخط الذي يظهر علامات الوقف والمد */
@@ -609,4 +605,9 @@ body.dark-mode #tafseer-content {
     height: 2px;
     background: linear-gradient(to right, transparent, #d4af37, transparent);
     margin: 40px 0;
+}
+
+.ayah-content:active {
+    background: rgba(212, 175, 55, 0.4);
+    transition: 0.1s;
 }
