@@ -37,10 +37,17 @@ const RAMADAN_30_DAYS = [
 /***********************
  * 2️⃣ التنقل وواجهة الإمساكية
  ***********************/
-function showSection(id) {
-    document.querySelectorAll("section").forEach(sec => sec.style.display = "none");
-    document.getElementById(id).style.display = "block";
-    window.scrollTo(0, 0);
+ 
+ function showSection(id) {
+    document.querySelectorAll("section").forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    target.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function renderImsakeya() {
@@ -53,17 +60,27 @@ function renderImsakeya() {
         <table class="prayer-table">
           <thead>
             <tr>
-              <th>رمضان</th><th>التاريخ</th>
-              <th>الفجر</th><th>الظهر</th>
-              <th>العصر</th><th>المغرب</th><th>العشاء</th>
+              <th>رمضان</th>
+              <th>التاريخ</th>
+              <th>الفجر</th>
+              <th>الظهر</th>
+              <th>العصر</th>
+              <th>المغرب</th>
+              <th>العشاء</th>
             </tr>
-          </thead><tbody>`;
-    
+          </thead>
+          <tbody>`;
+
     RAMADAN_30_DAYS.forEach(d => {
+        const dayNum = parseInt(d.date.split(" ")[0]);
         let isToday = false;
-        let dNum = parseInt(d.date);
-        if (d.date.includes("فبراير") && month === 2 && dNum === day) isToday = true;
-        else if (d.date.includes("مارس") && month === 3 && dNum === day) isToday = true;
+
+        if (d.date.includes("فبراير") && month === 2 && dayNum === day) {
+            isToday = true;
+        }
+        if (d.date.includes("مارس") && month === 3 && dayNum === day) {
+            isToday = true;
+        }
 
         html += `
         <tr class="${isToday ? 'current-day-row' : ''}">
@@ -80,13 +97,13 @@ function renderImsakeya() {
     html += "</tbody></table></div>";
     document.getElementById("prayer-times").innerHTML = html;
 
-    if (document.querySelector(".current-day-row")) {
+    const currentRow = document.querySelector(".current-day-row");
+    if (currentRow) {
         setTimeout(() => {
-            document.querySelector(".current-day-row").scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 500);
+            currentRow.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 400);
     }
 }
-
 
 /***********************
  * 3️⃣ السبحة الإلكترونية والأذكار (النسخة الكاملة)
@@ -130,19 +147,17 @@ const AZKAR_MODES = {
     hawqala: [{ text: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", limit: 100 }]
 
 };
-
-
-
-
-
 let currentMode = "sunna";
 let c = 0, phase = 0;
 
-window.setAzkar = function(mode) {
+window.setAzkar = function(mode, btn) {
     currentMode = mode;
     resetSebha();
-    document.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('active-opt'));
-    if (event && event.target) event.target.classList.add('active-opt');
+
+    document.querySelectorAll('.opt-btn')
+        .forEach(b => b.classList.remove('active-opt'));
+
+    if (btn) btn.classList.add('active-opt');
 };
 
 document.getElementById("sebha-btn").onclick = () => {
@@ -172,139 +187,224 @@ window.resetSebha = function() {
 /***********************
  * 4️⃣ المصحف والتفسير المطور
  ***********************/
-window.changeFontSize = function(delta) {
+ window.changeFontSize = function(delta) {
     const quranText = document.querySelector('.quran-p-tag');
-    if (quranText) {
-        let currentSize = parseFloat(window.getComputedStyle(quranText).fontSize);
-        quranText.style.fontSize = (currentSize + delta) + "px";
-    }
+    if (!quranText) return;
+
+    let currentSize = parseFloat(window.getComputedStyle(quranText).fontSize);
+
+    // تحديد حد أدنى وأقصى
+    const minSize = 12;
+    const maxSize = 36;
+
+    let newSize = currentSize + delta;
+    if (newSize < minSize) newSize = minSize;
+    if (newSize > maxSize) newSize = maxSize;
+
+    quranText.style.fontSize = newSize + "px";
 };
 
-window.toggleDarkMode = function() {
+ 
+ window.toggleDarkMode = function() {
     const quranContainer = document.querySelector('.quran-text-final');
     const btn = document.getElementById('night-mode-btn');
-    if (quranContainer) {
-        quranContainer.classList.toggle('dark-mode');
-        btn.innerText = quranContainer.classList.contains('dark-mode') ? "☀️" : "🌙";
-    }
+
+    if (!quranContainer || !btn) return;
+
+    const isDark = quranContainer.classList.toggle('dark-mode');
+    btn.innerText = isDark ? "☀️" : "🌙";
 };
 
+ 
 async function fetchSurah(id) {
     if (!id) return;
     const viewer = document.getElementById("quran-viewer");
-    let controlsHtml = `
+    if (!viewer) return;
+
+    // أدوات التحكم
+    const controlsHtml = `
         <div class="quran-tools">
             <button onclick="window.changeFontSize(2)">+A</button>
             <button onclick="window.changeFontSize(-2)">-A</button>
             <button onclick="window.toggleDarkMode()" id="night-mode-btn">🌙</button>
         </div>`;
+
     viewer.innerHTML = controlsHtml + "<p style='text-align:center;'>جاري تحميل السورة...</p>";
 
     try {
         const response = await fetch(`https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,ar.jalalayn`);
         const data = await response.json();
+        if (!data || !data.data) throw new Error("تعذر تحميل البيانات");
+
         const quranData = data.data[0];
         const tafseerData = data.data[1];
 
         let quranHtml = `<div class="quran-text-final">`;
+
+        // إضافة البسملة للسور ما عدا الفاتحة والتوبة
         if (id != 1 && id != 9) quranHtml += `<div class="basmalah-v2">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
 
         let allAyahs = "";
         quranData.ayahs.forEach((ayah, index) => {
             let text = ayah.text;
             if (index === 0 && id != 1 && id != 9) text = text.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "");
-            const tafseerText = tafseerData.ayahs[index].text.replace(/"/g, "'");
+// التعديل اللي عملته في السطر ده لزيادة الأمان:
+const tafseerText = tafseerData.ayahs[index].text.replace(/`/g, "'").replace(/"/g, "'");
             allAyahs += `<span class="ayah-content" onclick="openTafseer('${ayah.numberInSurah}', \`${tafseerText}\`)">${text}</span> <span class="ayah-mark">﴿${ayah.numberInSurah}﴾</span> `;
         });
 
         quranHtml += `<p class="quran-p-tag">${allAyahs}</p></div>`;
-        viewer.innerHTML = controlsHtml + quranHtml; 
-    } catch (e) { viewer.innerHTML = "<p>تعذر التحميل.</p>"; }
-}
+        viewer.innerHTML = controlsHtml + quranHtml;
 
+    } catch (e) {
+        viewer.innerHTML = controlsHtml + "<p>تعذر التحميل.</p>";
+        console.error(e);
+    }
+}
 window.openTafseer = function(num, text) {
-    document.getElementById("tafseer-title").innerText = "تفسير الآية (" + num + ")";
-    document.getElementById("tafseer-content").innerText = text;
-    document.getElementById("tafseer-sidebar").classList.add("active");
+    const title = document.getElementById("tafseer-title");
+    const content = document.getElementById("tafseer-content");
+    const sidebar = document.getElementById("tafseer-sidebar");
+
+    if (!title || !content || !sidebar) return;
+
+    title.innerText = `تفسير الآية (${num})`;
+    content.innerText = text;
+    sidebar.classList.add("active");
 };
 
 window.closeTafseer = function() {
-    document.getElementById("tafseer-sidebar").classList.remove("active");
+    const sidebar = document.getElementById("tafseer-sidebar");
+    if (!sidebar) return;
+    sidebar.classList.remove("active");
 };
 
 
 
 /***********************
- * 5️⃣ العداد التنازلي للصلوات (معدل بالتنبيهات)
+ * 5️⃣ العداد التنازلي للصلوات (معدل بالتنبيهات + فجر الغد)
  ***********************/
 function updateCountdown() {
     const now = new Date();
     const day = now.getDate();
     const month = now.getMonth() + 1;
-    
-    // جلب بيانات اليوم من المصفوفة
-    const todayData = RAMADAN_30_DAYS.find(d => {
-        let dNum = parseInt(d.date);
-        return (d.date.includes("فبراير") && month === 2 && dNum === day) || 
-               (d.date.includes("مارس") && month === 3 && dNum === day);
-    });
-    
-    if (!todayData) return;
-
-    const prayers = [
-        { name: "الفجر", time: todayData.f },
-        { name: "الظهر", time: todayData.zh },
-        { name: "العصر", time: todayData.a },
-        { name: "المغرب", time: todayData.m },
-        { name: "العشاء", time: todayData.i }
-    ];
-
-    let next = null;
-    const currentMin = now.getHours() * 60 + now.getMinutes();
-    
-    for (let p of prayers) {
-        let [t, mod] = p.time.split(' ');
-        let [h, m] = t.split(':').map(Number);
-        if (mod === 'م' && h !== 12) h += 12;
-        if (mod === 'ص' && h === 12) h = 0;
-        let pMin = h * 60 + m;
-        if (pMin > currentMin) { next = { name: p.name, min: pMin }; break; }
-    }
 
     const timerBox = document.getElementById("next-prayer-container");
     const nameLabel = document.getElementById("next-prayer-name");
     const countdownLabel = document.getElementById("countdown-timer");
 
-    if (next) {
-        let diff = next.min - currentMin;
-        let hrs = Math.floor(diff / 60);
-        let mins = diff % 60;
-        let secs = 59 - now.getSeconds();
+    if (!timerBox || !nameLabel || !countdownLabel) return;
 
-        // 1. التحديث الطبيعي للوقت
+    // قبل رمضان
+    const ramadanStart = new Date(2026, 1, 18); // فبراير = 1
+    if (now < ramadanStart) {
+        const diffTime = ramadanStart - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        nameLabel.innerText = "اللهم بلغنا رمضان.. باقي على الشهر الكريم:";
+        countdownLabel.innerText = `${diffDays} يوم`;
+        timerBox.style.background = "linear-gradient(135deg, #1a2a6c, #b21f1f)";
+        return;
+    }
+
+    // بيانات اليوم
+    const todayData = RAMADAN_30_DAYS.find(d => {
+        const dayNum = parseInt(d.date.split(" ")[0]);
+        return (d.date.includes("فبراير") && month === 2 && dayNum === day) ||
+               (d.date.includes("مارس") && month === 3 && dayNum === day);
+    });
+
+    // بعد رمضان
+    const ramadanEnd = new Date(2026, 2, 19); // مارس = 2
+    if (!todayData && now > ramadanEnd) {
+        nameLabel.innerText = "عيد مبارك.. تقبل الله منا ومنكم صالح الأعمال";
+        countdownLabel.innerText = "كل عام وأنتم بخير";
+        timerBox.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)";
+        return;
+    }
+
+    // قائمة الصلوات
+    const prayers = todayData ? [
+        { name: "الفجر", time: todayData.f },
+        { name: "الظهر", time: todayData.zh },
+        { name: "العصر", time: todayData.a },
+        { name: "المغرب", time: todayData.m },
+        { name: "العشاء", time: todayData.i }
+    ] : [];
+
+    let next = null;
+    const currentSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+    for (let p of prayers) {
+        let [t, mod] = p.time.split(' ');
+        let [h, m] = t.split(':').map(Number);
+        if (mod === 'م' && h !== 12) h += 12;
+        if (mod === 'ص' && h === 12) h = 0;
+        let pSec = h * 3600 + m * 60;
+        if (pSec > currentSec) { next = { name: p.name, sec: pSec }; break; }
+    }
+
+    if (next) {
+        let diffSec = next.sec - currentSec;
+        let hrs = Math.floor(diffSec / 3600);
+        let mins = Math.floor((diffSec % 3600) / 60);
+        let secs = diffSec % 60;
+
         nameLabel.innerText = `المتبقي لصلاة ${next.name}`;
         countdownLabel.innerText = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
 
-        // 2. منطق التنبيهات الخاصة (السحور والإفطار)
-        
-        // تنبيه السحور (قبل الفجر بـ 60 دقيقة)
-        if (next.name === "الفجر" && diff <= 60) {
+        if (next.name === "الفجر" && diffSec <= 3600) {
             timerBox.style.background = "linear-gradient(135deg, #4a0e0e, #8b0000)";
             nameLabel.innerText = "⚡ حان وقت السحور.. باقي ساعة على الإمساك";
-        } 
-        // تنبيه الإفطار (عندما يصفر عداد المغرب تماماً)
-        else if (next.name === "المغرب" && diff === 1 && now.getSeconds() >= 59) {
-            // ملاحظة: الـ diff يكون 1 في آخر دقيقة، لذا نتحقق من الثواني
+        } else if (next.name === "المغرب" && diffSec === 0) {
             timerBox.style.background = "linear-gradient(135deg, #1a9c3b, #27ae60)";
             nameLabel.innerText = "🍱 تقبل الله صيامكم.. أفطاراً شهياً";
             countdownLabel.innerText = "00:00:00";
+        } else if (next.name === "العشاء" && diffSec <= 900) {
+            timerBox.style.background = "linear-gradient(135deg, #2c3e50, #34495e)";
+            nameLabel.innerText = "🌙 لا تنس صلاة التراويح بعد العشاء";
+        } else {
+            timerBox.style.background = "var(--navy)";
         }
-        else {
-            // العودة للتنسيق الأصلي (Navy) في الأوقات العادية
+    } else {
+        // عرض عداد الفجر لليوم التالي
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tDay = tomorrow.getDate();
+        const tMonth = tomorrow.getMonth() + 1;
+
+        const tomorrowData = RAMADAN_30_DAYS.find(d => {
+            const dayNum = parseInt(d.date.split(" ")[0]);
+            return (d.date.includes("فبراير") && tMonth === 2 && dayNum === tDay) ||
+                   (d.date.includes("مارس") && tMonth === 3 && dayNum === tDay);
+        });
+
+        if (tomorrowData) {
+            let [t, mod] = tomorrowData.f.split(' ');
+            let [h, m] = t.split(':').map(Number);
+            if (mod === 'م' && h !== 12) h += 12;
+            if (mod === 'ص' && h === 12) h = 0;
+            let fajrSec = h * 3600 + m * 60;
+            let nowSec = currentSec;
+            let diffSec = (24 * 3600 - nowSec) + fajrSec;
+
+            let hrs = Math.floor(diffSec / 3600);
+            let mins = Math.floor((diffSec % 3600) / 60);
+            let secs = diffSec % 60;
+
+            nameLabel.innerText = "المتبقي لصلاة الفجر غدًا";
+            countdownLabel.innerText = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            timerBox.style.background = "linear-gradient(135deg, #0f2027, #2c5364)";
+        } else {
+            nameLabel.innerText = "انتهت صلوات اليوم.. استعد لصلاة فجر الغد";
+            countdownLabel.innerText = "--:--:--";
             timerBox.style.background = "var(--navy)";
         }
     }
 }
+
+// تشغيل العداد كل ثانية
+setInterval(updateCountdown, 1000);
 
 /***********************
  * 6️⃣ التشغيل الأساسي والبيانات النهائية
