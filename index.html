@@ -44,6 +44,30 @@
         <button onclick="showSection('imsakeya')">📅 الإمساكية</button>
         <button onclick="showSection('sebha')">📿 السبحة</button>
         <button onclick="showSection('quran')">📖 المصحف</button>
+		
+		<div id="ai-nav-wrapper" style="display: inline-block; vertical-align: middle;">
+    <div id="ai-header-button" onclick="toggleAIChat()" style="cursor: pointer; background: #1a2a6c; color: white; padding: 8px 15px; border-radius: 25px; border: 1px solid #ffd700; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <span style="font-size: 13px; font-weight: bold;">لو عندك سؤال في الإسلام اسأل هنا</span>
+        <span style="background: white; color: #1a2a6c; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 14px;">💬</span>
+    </div>
+
+    <div id="ai-popup-window" style="display: none; position: fixed; top: 100px; right: 20px; width: 320px; height: 450px; background: white; border-radius: 15px; z-index: 99999; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 2px solid #1a2a6c;">
+        <div style="background: #1a2a6c; color: white; padding: 12px; border-radius: 13px 13px 0 0; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold;">المساعد الديني الذكي</span>
+            <button onclick="toggleAIChat()" style="background:none; border:none; color:white; cursor:pointer; font-size: 20px;">&times;</button>
+        </div>
+        <div id="ai-messages-container" style="flex: 1; padding: 15px; overflow-y: auto; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px; direction: rtl;">
+            <div style="background: #eee; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-start; font-size: 13px;">أهلاً بك! أنا مساعدك الذكي. اسألني أي سؤال ديني وسأجيبك فوراً.</div>
+        </div>
+        <div style="display: flex; padding: 10px; border-top: 1px solid #eee; background: white; border-radius: 0 0 15px 15px;">
+            <input type="text" id="ai-chat-input" placeholder="اكتب سؤالك هنا..." style="flex: 1; border: 1px solid #ddd; padding: 8px; border-radius: 5px; outline: none; direction: rtl;" onkeypress="if(event.key === 'Enter') processAIStep()">
+            <button onclick="processAIStep()" style="background: #1a2a6c; color: white; border: none; margin-right: 5px; padding: 5px 15px; border-radius: 5px; cursor: pointer;">ارسل</button>
+        </div>
+    </div>
+</div>
+		
+		
+		
     </nav>
 
     <section id="imsakeya">
@@ -131,5 +155,10 @@
     </div>
 
     <script src="script.js"></script>
+	
+	
+	
+	
+	
 </body>
 </html>
