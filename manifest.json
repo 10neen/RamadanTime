@@ -1,15 +1,26 @@
 {
   "short_name": "إمساكية 2026",
   "name": "إمساكية رمضان 1447هـ - الصعيدي",
+  "description": "تطبيق إمساكية رمضان، أذكار، ومصحف إلكتروني يعمل بدون إنترنت",
   "icons": [
     {
       "src": "ramadan-fanous.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "ramadan-fanous.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#1a2a6c",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "lang": "ar",
+  "dir": "rtl"
 }
