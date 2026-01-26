@@ -481,7 +481,6 @@ function toggleAIChat() {
 }
 
 
-
 const GEMINI_API_KEY = "AIzaSyAymwmGKkyHcWL3rv9lzkroHffAIfaVvtI";
 
 async function processAIStep() {
@@ -491,12 +490,12 @@ async function processAIStep() {
 
     if (!query) return;
 
-    // عرض سؤالك فوراً
+    // إظهار سؤالك
     container.innerHTML += `<div style="background: #1a2a6c; color: white; padding: 10px; border-radius: 10px 10px 10px 0; align-self: flex-end; font-size: 13px; margin-bottom: 5px; text-align: right;">${query}</div>`;
     input.value = "";
     
     const loadingId = "ai-load-" + Date.now();
-    container.innerHTML += `<div id="${loadingId}" style="background: #eee; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-start; font-size: 13px; text-align: right;">🔍 جاري الرد...</div>`;
+    container.innerHTML += `<div id="${loadingId}" style="background: #eee; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-start; font-size: 13px; text-align: right;">🔍 جاري البحث في المصادر الدينية...</div>`;
     container.scrollTop = container.scrollHeight;
 
     try {
@@ -513,16 +512,18 @@ async function processAIStep() {
 
         const data = await response.json();
 
-        if (data.candidates && data.candidates[0].content) {
-            const result = data.candidates[0].content.parts[0].text;
-            document.getElementById(loadingId).innerText = result;
+        // التعديل الجوهري لقراءة الرد بنجاح من أي موبايل
+        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
+            const aiResponse = data.candidates[0].content.parts[0].text;
+            document.getElementById(loadingId).innerText = aiResponse;
+        } else if (data.error) {
+            document.getElementById(loadingId).innerText = "تنبيه من جوجل: " + data.error.message;
         } else {
-            throw new Error(data.error ? data.error.message : "خطأ غير معروف");
+            document.getElementById(loadingId).innerText = "أهلاً بك، لم أتمكن من صياغة إجابة. حاول سؤالاً آخر.";
         }
 
     } catch (e) {
-        document.getElementById(loadingId).innerText = "تنبيه: تأكد من رفع الموقع على GitHub Pages ليعمل على جميع الموبايلات.";
-        console.error("الخطأ:", e);
+        document.getElementById(loadingId).innerText = "خطأ في الاتصال، يرجى المحقق من الإنترنت.";
     }
     container.scrollTop = container.scrollHeight;
 }
