@@ -1,4 +1,4 @@
-const CACHE_NAME = "ramadan-cache-v4";
+const CACHE_NAME = "ramadan-cache-v5";
 
 // قائمة الملفات التي سيتم حفظها في ذاكرة الموبايل ليعمل التطبيق بدون إنترنت
 const urlsToCache = [
@@ -47,5 +47,6 @@ self.addEventListener("activate", event => {
   );
 
 });
+
 
 
