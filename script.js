@@ -483,10 +483,37 @@ function toggleAIChat() {
 // مفتاحك سليم تماماً كما في الصورة
 const GEMINI_API_KEY = "AIzaSyAymwmGKkyHcWL3rv9lzkroHffAIfaVvtI"; 
 
+
+
+
+
+const GEMINI_API_KEY = "AIzaSyAymwmGKkyHcWL3rv9lzkroHffAIfaVvtI";
+
+// تأكد أن الكود يبدأ بالعمل فقط بعد تحميل الصفحة تماماً
+document.addEventListener("DOMContentLoaded", function() {
+    const sendBtn = document.getElementById("ai-send-btn"); // تأكد أن ID الزر في HTML هو ai-send-btn
+    if (sendBtn) {
+        sendBtn.onclick = processAIStep;
+    }
+});
+
 async function processAIStep() {
-    // ... (نفس كود جلب العناصر) ...
+    const input = document.getElementById("ai-chat-input");
+    const container = document.getElementById("ai-messages-container");
+    const query = input.value.trim();
+
+    if (!query) return;
+
+    // 1. عرض سؤالك فوراً
+    container.innerHTML += `<div style="background: #1a2a6c; color: white; padding: 10px; border-radius: 10px; margin-bottom: 5px; text-align: right;">${query}</div>`;
+    input.value = "";
+    
+    const loadingId = "load-" + Date.now();
+    container.innerHTML += `<div id="${loadingId}" style="background: #eee; padding: 10px; border-radius: 10px; margin-bottom: 5px; text-align: right;">🔍 جاري الرد...</div>`;
+    container.scrollTop = container.scrollHeight;
+
     try {
-        // التعديل السحري: استخدام v1 بدلاً من v1beta
+        // 2. استخدام الرابط المستقر v1 (لأن v1beta أعطى خطأ في صورك)
         const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(url, {
@@ -498,13 +525,19 @@ async function processAIStep() {
         });
 
         const data = await response.json();
-        
-        if (data.candidates) {
+
+        // 3. عرض الإجابة الحقيقية
+        if (data.candidates && data.candidates[0].content) {
             document.getElementById(loadingId).innerText = data.candidates[0].content.parts[0].text;
         } else {
-            document.getElementById(loadingId).innerText = "المفتاح يعمل، ولكن هناك خطأ في تنسيق السؤال.";
+            document.getElementById(loadingId).innerText = "عذراً، جوجل لم ترسل رداً. تأكد من إعدادات المفتاح.";
         }
+
     } catch (e) {
-        document.getElementById(loadingId).innerText = "تأكد من تحديث الملف على GitHub Pages.";
+        document.getElementById(loadingId).innerText = "فشل الاتصال. حاول مرة أخرى.";
     }
+    container.scrollTop = container.scrollHeight;
 }
+
+
+
