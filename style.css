@@ -54,76 +54,89 @@ nav button {
 
 
 
-
+/* --- تنسيق القسم العام --- */
 section { 
-    background: var(--white-trans); 
+    background: #ffffff; /* خلفية بيضاء صريحة خلف الجدول لزيادة التباين */
     margin: 15px auto; 
-    /* الحل الأمثل للموبايل والكمبيوتر معاً */
-    width: calc(100% - 20px); /* يترك مسافة 10px يمين ويسار دائماً */
+    width: calc(100% - 20px); 
     max-width: 850px; 
-    padding: 15px 10px; /* حشو داخلي متوازن */
+    padding: 15px 10px; 
     border-radius: 12px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    
-    /* منع خروج أي محتوى داخلي (زي الجدول أو اللفافة) عن حدود القسم */
-    overflow: hidden; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* زيادة الظل لإعطاء عمق */
+    overflow: visible;
 }
 
 
-
-/* الحاوية - منعنا السكرول وخليناها محكمة */
-
-
-/* الحاوية - تجعل الجدول قابلاً للسحب لو ضاق جداً */
+/* --- 1. حاوية الجدول لضمان السكرول على الموبايل --- */
 .table-container { 
     width: 100%;
-    overflow-x: auto; /* يسمح بالتمرير الجانبي البسيط جداً لو الموبايل قديم أو ضيق */
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
     border-radius: 8px; 
-    border: 1px solid #ddd;
+    border: 1px solid #d4c19d;
+    background: #ffffff !important; 
 }
 
+/* --- 2. تنسيق الجدول الأساسي (ضد البهتان) --- */
 .prayer-table { 
     width: 100%;
     border-collapse: collapse; 
-    background: white;
-    table-layout: auto; /* خليناها auto عشان المتصفح يوزع المساحة بذكاء */
-    min-width: 320px; /* أقل عرض يضمن ظهور المحتوى */
+    background-color: #ffffff !important; 
+    table-layout: fixed;
+    min-width: 320px;
+    color: #1a1a1a !important; 
+    border: 2px solid #8e7341; 
 }
 
-.prayer-table th, .prayer-table td { 
-    padding: 8px 2px; /* تقليل الحشو الجانبي جداً */
-    font-size: 10px;  /* حجم خط صغير ومناسب للموبايلات الضيقة */
-    border: 1px solid #eee;
+.prayer-table th, 
+.prayer-table td { 
+    padding: 10px 2px; 
+    font-size: 11px; 
+    border: 1px solid #d4c19d; 
     text-align: center;
-    white-space: nowrap; /* يمنع كسر السطر في أوقات الصلاة */
+    white-space: normal;
+    color: #1a1a1a !important;
 }
 
+/* الهيدر الكحلي الملكي */
 .prayer-table th { 
-    background: var(--navy); 
-    color: white;
-    font-size: 9px; /* تصغير العناوين لترك مساحة للأرقام */
-}
-
-/* تمييز عمود التاريخ لإعطائه مساحة أكبر قليلاً */
-.prayer-table td:nth-child(2) {
-    font-size: 9px;
-    white-space: normal; /* السماح للتاريخ بالنزول لسطرين لو احتاج */
-    min-width: 50px;
-}
-
-
-
-
-/* --- تلوينات الخلايا واليوم الحالي --- */
-.fajr-highlight { background-color: #eff6ff !important; color: #1e40af; font-weight: bold; }
-.maghrib-highlight { background-color: #fff7ed !important; color: #9a3412; font-weight: bold; }
-
-.current-day-row {
-    background-color: #fffde7 !important;
-    border: 2px solid var(--gold) !important;
+    background: #1a2a6c !important; 
+    color: #ffffff !important; 
+    font-size: 13px;
     font-weight: bold;
 }
+
+/* --- 3. تمييز اليوم الحالي (لون ورقة المخطوطات) --- */
+.current-day-row {
+    background-color: #dcc8a0 !important; /* درجة بيج واضحة وغنية */
+    outline: 2px solid #8e7341 !important;
+    outline-offset: -2px;
+}
+
+.current-day-row td {
+    color: #3b2b1a !important; 
+    font-weight: bold;
+}
+
+/* --- 4. ألوان الفجر والمغرب (الدرجات الواضحة) --- */
+.fajr-highlight { 
+    background-color: #d1e9ff !important; 
+    color: #0d47a1 !important; 
+    font-weight: bold;
+}
+
+.maghrib-highlight { 
+    background-color: #ffe0b2 !important; 
+    color: #e65100 !important; 
+    font-weight: bold;
+}
+
+/* الظل الخارجي للقسم */
+section {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+}
+
+
 
 /* --- العداد التنازلي: تقليل الأحجام للموبايل --- */
 .countdown-box {
@@ -722,3 +735,5 @@ body.dark-mode .quran-paper::after {
         background-color: #1e293b !important;
     }
 }
+
+
