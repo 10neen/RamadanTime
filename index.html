@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D9MB4ZTG5Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-D9MB4ZTG5Y');
-</script>
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D9MB4ZTG5Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-D9MB4ZTG5Y');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إمساكية رمضان 2026 - الصعيدي للأدوات الصحية</title>
 
-<link rel="canonical" href="https://10neen.github.io/RamadanTime/" />
-<link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://10neen.github.io/RamadanTime/" />
+    <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#1a2a6c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="إمساكية 2026">
+    <meta name="theme-color" content="#1a2a6c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="إمساكية 2026">
 
-<link rel="icon" type="image/png" href="ramadan-fanous.png">
-<link rel="apple-touch-icon" href="ramadan-fanous.png">
-	
+    <link rel="icon" type="image/png" href="ramadan-fanous.png">
+    <link rel="apple-touch-icon" href="ramadan-fanous.png">
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-	
-	<div id="duaa-bar" style="background:linear-gradient(135deg,#2c3e50,#4ca1af); color:#fff; padding:8px; border-radius:6px; overflow:hidden; white-space:nowrap;">
-  <marquee behavior="scroll" direction="right" scrollamount="4" onfinish="this.parentElement.style.display='none'">
-    نسئلكم الدعاء لموتانا وموتاكم وموتى المسلمين 🌹 اللهم اجعل لهم نصيبًا من صالح دعواتنا وصالح أعمالنا
-  </marquee>
+        <div id="duaa-bar" style="background:linear-gradient(135deg,#2c3e50,#4ca1af); color:#fff; padding:8px; border-radius:6px; overflow:hidden; white-space:nowrap;">
+            <marquee behavior="scroll" direction="right" scrollamount="4">
+                نسئلكم الدعاء لموتانا وموتاكم وموتى المسلمين 🌹 اللهم اجعل لهم نصيبًا من صالح دعواتنا وصالح أعمالنا
+            </marquee>
         </div>
 
         <h1>🌙 رمضان كريم</h1>
@@ -53,31 +47,39 @@
     </header>
 
     <nav>
-	
-	
         <button onclick="showSection('imsakeya')">📅 الإمساكية</button>
         <button onclick="showSection('sebha')">📿 السبحة</button>
         <button onclick="showSection('quran')">📖 المصحف</button>
-
-
     </nav>
 
     <section id="imsakeya">
         <h2 class="section-title">إمساكية رمضان 2026</h2>
-        <div id="prayer-times" class="table-container"></div>
-		
-		
-		<div class="eid-section">
-    <div class="eid-card">
-        <h3>🎊 موعد صلاة عيد الفطر المبارك 🎊</h3>
-        <p>يوم الجمعة 20 مارس 2026 (تقريباً)</p>
-        <div class="eid-time">الساعة 06:04 صباحاً</div>
-        <small>طبقاً لمدينة القاهرة وضواحيها</small>
-    </div>
-</div>
-
-<hr class="gold-hr">
-
+        <div class="table-container">
+            <table class="prayer-table" id="imsakia-table">
+                <thead>
+                    <tr>
+                        <th>التاريخ</th>
+                        <th>فجر</th>
+                        <th>شروق</th>
+                        <th>ظهر</th>
+                        <th>عصر</th>
+                        <th>مغرب</th>
+                        <th>عشاء</th>
+                    </tr>
+                </thead>
+                <tbody id="prayer-times">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="eid-section">
+            <div class="eid-card">
+                <span>🎊 صلاة عيد الفطر: الجمعة 20 مارس 2026</span>
+                <span class="eid-time">الساعة 06:04 صباحاً</span>
+                <small>(بتوقيت القاهرة)</small>
+            </div>
+        </div>
+        <hr class="gold-hr">
     </section>
 
     <section id="sebha" style="display:none;">
@@ -90,11 +92,9 @@
                 <button id="sebha-reset" class="reset-btn" onclick="resetSebha()">تصفير</button>
             </div>
         </div>
-		
+        
         <div class="azkar-options">
             <p style="text-align:center; color:#5d4037; font-weight:bold; margin-bottom:10px;">اختر الورد اليومي:</p>
-			
-			
             <div class="options-grid">
                 <button onclick="setAzkar('sunna')" class="opt-btn active-opt">تسبيح الصلاة</button>
                 <button onclick="setAzkar('sabah')" class="opt-btn">☀️ أذكار الصباح</button>
@@ -105,40 +105,27 @@
                 <button onclick="setAzkar('hawqala')" class="opt-btn">حوقلة</button>
             </div>
         </div>
-		
-		
-		
     </section>
 
-<section id="quran" style="display:none;">
+    <section id="quran" style="display:none;">
         <h2 class="section-title">المصحف الشريف</h2>
-        
         <div class="quran-controls" style="text-align: center; margin-bottom: 15px;">
             <select id="surah-select" onchange="fetchSurah(this.value)" style="width: 85%; padding: 12px; border-radius: 8px; border: 1px solid #8e7341; background: #fffcf5; font-family: 'Tajawal', sans-serif;">
                 <option value="">📖 اختر السورة لتبدأ القراءة...</option>
             </select>
-        </div> <div id="quran-viewer" class="quran-paper">
+        </div>
+        <div id="quran-viewer" class="quran-paper">
             <div class="quran-placeholder">
-                <div class="basmalah-v2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-                
+                <div class="basmalah-v2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
                 <div class="quran-intro-box">
-                    <p class="ayah-highlight">
-                        "ثُمَّ أَوْرَثْنَا الْكِتَابَ الَّذِينَ اصْطَفَيْنَا مِنْ عِبَادِنَا ۖ فَمِنْهُمْ ظَالِمٌ لِّنَفْسِهِ وَمِنْهُمْ مُّقْتَصِدٌ وَمِنْهُمْ سَابِقٌ بِالْخَيْرَاتِ بِإِذْنِ اللَّهِ ۚ ذَٰلِكَ هُوَ الْفَضْلُ الْكَبِيرُ"
-                    </p>
-                    <p class="ayah-highlight">
-                        "جَنَّاتُ عَدْنٍ يَدْخُلُونَهَا يُحَلَّوْنَ فِيهَا مِنْ أَساوِرَ مِن ذَهَبٍ وَلُؤْلُؤًا ۖ وَلِباسُهُمْ فِيها حَرِيرٌ"
-                    </p>
+                    <p class="ayah-highlight">"ثُمَّ أَوْرَثْنَا الْكِتَابَ الَّذِينَ اصْطَفَيْنَا مِنْ عِبَادِنَا..."</p>
+                    <p class="ayah-highlight">"جَنَّاتُ عَدْنٍ يَدْخُلُونَهَا يُحَلَّوْنَ فِيهَا..."</p>
                     <span class="sura-ref">[ سورة فاطر: 32 - 33 ]</span>
                 </div>
-
-                <div class="action-hint">
-                    ✨ نور قلبك.. اختر سورة من القائمة لتبدأ القراءة ✨
-                </div>
+                <div class="action-hint">✨ نور قلبك.. اختر سورة من القائمة لتبدأ القراءة ✨</div>
             </div>
         </div>
     </section>
-
-
 
     <div id="tafseer-sidebar" class="tafseer-sidebar">
         <div class="tafseer-header">
@@ -149,8 +136,5 @@
     </div>
 
     <script src="script.js"></script>
-	
-	
-	
 </body>
 </html>
