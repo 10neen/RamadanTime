@@ -1,4 +1,4 @@
-const CACHE_NAME = "ramadan-cache-v10";
+const CACHE_NAME = "ramadan-cache-v11";
 
 // قائمة الملفات التي سيتم حفظها ليعمل التطبيق بدون إنترنت
 const urlsToCache = [
@@ -55,4 +55,5 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
 
