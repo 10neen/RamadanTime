@@ -334,12 +334,31 @@ window.resetSebha = function() {
     btn.innerText = isDark ? "☀️" : "🌙";
 };
 
- async function fetchSurah(id) {
+/***********************
+ * تعديل دالة تنسيق التاريخ ليكون الترتيب: اسم اليوم ثم اليوم ثم الشهر
+ ***********************/
+function formatDateWithDay(dateStr) {
+    const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+    const monthsLookup = {"فبراير":2,"مارس":3};
+
+    const [dayNum, monthName] = dateStr.split(" ");
+    const monthNum = monthsLookup[monthName];
+    // إنشاء كائن تاريخ للتأكد من اليوم الصحيح في 2026
+    const date = new Date(2026, monthNum - 1, parseInt(dayNum, 10));
+    const dayName = days[date.getDay()];
+    
+    // الترتيب المطلوب: اسم اليوم + رقم اليوم + اسم الشهر
+    return `${dayName} ${dayNum} ${monthName}`;
+}
+
+/***********************
+ * تعديل جلب السورة (إصلاح البسملة)
+ ***********************/
+async function fetchSurah(id) {
     if (!id) return;
     const viewer = document.getElementById("quran-viewer");
     if (!viewer) return;
 
-    // 1. مسح اللفافة القديمة ووضع أدوات التحكم
     const controlsHtml = `
         <div class="quran-tools">
             <button onclick="window.changeFontSize(2)">+A</button>
@@ -358,39 +377,41 @@ window.resetSebha = function() {
 
         let quranHtml = `<div class="quran-text-final">`;
 
-        // 2. إضافة البسملة بتنسيق مستقل لكل السور عدا التوبة
         if (id != 9) {
-            quranHtml += `<div class="basmalah-v2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
+            quranHtml += `<div class="basmalah-v2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
         }
 
         let allAyahs = "";
         quranData.ayahs.forEach((ayah, index) => {
             let text = ayah.text;
 
-            // 3. حذف البسملة من أول آية بأمان (باستخدام Regex) لعدم التكرار
+            // تعديل Regex لمسح البسملة من أول آية بشكل أدق (ماعدا الفاتحة والتوبة)
             if (index === 0 && id != 1 && id != 9) {
-                // هيمسح البسملة مهما كان تشكيلها من بداية النص
-                text = text.replace(/^بِسْمِ\s+اللَّهِ\s+الرَّحْمَٰنِ\s+الرَّحِيمِ\s?/, "").trim();
+                const basmalahPart = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+                if (text.startsWith(basmalahPart)) {
+                    text = text.replace(basmalahPart, "").trim();
+                }
             }
             
-            // سورة الفاتحة: الآية الأولى هي البسملة، وبما أننا وضعناها في basmalah-v2، نتخطى تكرارها
-            if (id == 1 && index === 0) return;
+            if (id == 1 && index === 0) return; // الفاتحة آيتها الأولى هي البسملة فعلاً
 
+            // تأمين نص التفسير من أي علامات قد تكسر الكود
             const tafseerText = tafseerData.ayahs[index].text.replace(/`/g, "'").replace(/"/g, "'");
+            
             allAyahs += `<span class="ayah-content" onclick="openTafseer('${ayah.numberInSurah}', \`${tafseerText}\`)">${text}</span> 
                          <span class="ayah-mark">﴿${ayah.numberInSurah}﴾</span> `;
         });
 
         quranHtml += `<p class="quran-p-tag">${allAyahs}</p></div>`;
-        
-        // 4. تحديث العارض (المحتوى الجديد هيمسح اللفافة القديمة تماماً)
         viewer.innerHTML = controlsHtml + quranHtml;
 
     } catch (e) {
         viewer.innerHTML = controlsHtml + "<p style='text-align:center; color:red;'>تعذر تحميل السورة، تأكد من اتصالك بالإنترنت.</p>";
-        console.error(e);
     }
 }
+
+
+
 window.openTafseer = function(num, text) {
     const title = document.getElementById("tafseer-title");
     const content = document.getElementById("tafseer-content");
