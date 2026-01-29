@@ -1,8 +1,8 @@
-const CACHE_NAME = "ramadan-cache-v12";
+const CACHE_NAME = "ramadan-cache-v13"; // تحديث الإصدار لضمان تنشيط التعديلات الجديدة
 
-// قائمة الملفات التي سيتم حفظها ليعمل التطبيق بدون إنترنت
+// قائمة الملفات الأساسية - تأكد أن الأسماء مطابقة تماماً للموجود في المجلد
 const urlsToCache = [
-  "/",
+  "./",                 // المسار الرئيسي
   "index.html",
   "style.css",
   "script.js",
@@ -11,31 +11,31 @@ const urlsToCache = [
   "manifest.json"
 ];
 
-// 1. مرحلة التثبيت: حفظ الملفات وجعل النسخة الجديدة "تتخطى الانتظار"
+// 1. التثبيت: حفظ الملفات في الكاش
 self.addEventListener("install", event => {
-  // تجعل السيرفس وركر الجديد يحل محل القديم فورًا دون انتظار إغلاق المتصفح
   self.skipWaiting(); 
-  
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log("تم فتح الذاكرة v9 وحفظ الملفات بنجاح");
-      return cache.addAll(urlsToCache);
+      console.log("PWA: جارٍ حفظ الملفات في الكاش v10...");
+      // استخدام map لتجنب توقف الكاش بالكامل إذا فشل ملف واحد
+      return Promise.all(
+        urlsToCache.map(url => {
+          return cache.add(url).catch(err => console.error(`فشل إضافة ${url} للكاش:`, err));
+        })
+      );
     })
   );
 });
 
-// 2. مرحلة التنشيط: مسح الكاش القديم (v8 وما قبله) والسيطرة فورًا
+// 2. التنشيط: تنظيف الكاش القديم
 self.addEventListener("activate", event => {
-  // تجعل السيرفس وركر يسيطر على الصفحة فور تنشيطه
-  self.clients.claim(); 
-  
-  const cacheWhitelist = [CACHE_NAME];
+  self.clients.claim();
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            console.log("جارٍ حذف الكاش القديم:", cacheName);
+          if (cacheName !== CACHE_NAME) {
+            console.log("PWA: حذف الكاش القديم:", cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -44,17 +44,29 @@ self.addEventListener("activate", event => {
   );
 });
 
-// 3. مرحلة الاستدعاء: جلب الملفات من الكاش أو الإنترنت
+// 3. الاستدعاء: استراتيجية "الكاش أولاً ثم الشبكة"
 self.addEventListener("fetch", event => {
+  // تخطي طلبات الـ Chrome Extensions أو الروابط الخارجية غير الضرورية
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      // إذا وجد الملف في الكاش نعرضه، وإذا لم يوجد نجلبه من الإنترنت
-      return response || fetch(event.request).catch(() => {
-        // اختياري: يمكنك هنا عرض صفحة "أنت أوفلاين" إذا فشل الاتصال بالكامل
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse; // إذا الملف موجود في الكاش، عرضه فوراً
+      }
+
+      // إذا لم يكن في الكاش، جربه من الشبكة
+      return fetch(event.request).then(networkResponse => {
+        // تحديث الكاش بالملف الجديد (اختياري لزيادة السرعة لاحقاً)
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+        }
+        return networkResponse;
+      }).catch(() => {
+        // هنا يمكنك إرجاع صفحة أوفلاين افتراضية إذا أردت
+        console.log("النت مقطوع والملف غير موجود في الكاش.");
       });
     })
   );
 });
-
-
-
