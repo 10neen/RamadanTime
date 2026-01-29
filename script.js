@@ -37,32 +37,8 @@ const RAMADAN_30_DAYS = [
 /***********************
  * 2️⃣ التنقل وواجهة الإمساكية
  ***********************/
-function showSection(id) {
-    document.querySelectorAll("section").forEach(sec => {
-        sec.style.display = "none";
-    });
-
-    const target = document.getElementById(id);
-    if (!target) return;
-
-    target.style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-// تعديل الدالة لضمان توافق أسماء الأيام مع تواريخ 2026
-function formatDateWithDay(dateStr) {
-    const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-    const months = {"فبراير":2,"مارس":3};
-
-    const [dayNum, monthName] = dateStr.split(" ");
-    const monthNum = months[monthName];
-    // إنشاء كائن تاريخ لسنة 2026 للتأكد من اسم اليوم
-    const date = new Date(2026, monthNum - 1, parseInt(dayNum, 10));
-    const dayName = days[date.getDay()];
-    return `${dayName} ${dayNum} ${monthName}`;
-}
-
-function renderImsakeya() {
+ 
+ function renderImsakeya() {
     const today = new Date();
     const day = today.getDate();
     const month = today.getMonth() + 1;
@@ -91,7 +67,7 @@ function renderImsakeya() {
         html += `
         <tr class="${isToday ? 'current-day-row' : ''}">
             <td>${d.d}</td>
-            <td>${d.date}</td>
+            <td>${formatDateWithDay(d.date)}</td> 
             <td class="fajr-highlight">${adjustTime(d.f, currentOffset)}</td>
             <td>${adjustTime(d.zh, currentOffset)}</td>
             <td>${adjustTime(d.a, currentOffset)}</td>
@@ -102,12 +78,13 @@ function renderImsakeya() {
 
     html += "</tbody>";
     
-    // تأمين الـ ID: لو المستخدم كاتب imsakia-table أو prayer-times يشتغل في الحالتين
     const container = document.getElementById("imsakia-table") || document.getElementById("prayer-times");
     if (container) {
         container.innerHTML = html;
     }
 }
+
+
 
 /***********************
  * 3️⃣ السبحة الإلكترونية والأذكار (النسخة الكاملة)
@@ -314,20 +291,89 @@ window.resetSebha = function() {
 /***********************
  * تعديل دالة تنسيق التاريخ ليكون الترتيب: اسم اليوم ثم اليوم ثم الشهر
  ***********************/
+ // 1. الدالة المسؤولة عن تحويل التاريخ لشكل (اليوم رقم اليوم/الشهر)
 function formatDateWithDay(dateStr) {
-    const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-    const monthsLookup = {"فبراير":2,"مارس":3};
+    const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    const months = { "فبراير": 2, "مارس": 3 };
 
     const [dayNum, monthName] = dateStr.split(" ");
-    const monthNum = monthsLookup[monthName];
-    // إنشاء كائن تاريخ للتأكد من اليوم الصحيح في 2026
+    const monthNum = months[monthName];
+
+    // إنشاء تاريخ لسنة 2026 للتأكد من اسم اليوم بدقة
     const date = new Date(2026, monthNum - 1, parseInt(dayNum, 10));
     const dayName = days[date.getDay()];
-    
-    // الترتيب المطلوب: اسم اليوم + رقم اليوم + اسم الشهر
-    return `${dayName} ${dayNum} ${monthName}`;
+
+    // النتيجة النهائية: الخميس 18/2
+    return `${dayName} ${dayNum}/${monthNum}`;
 }
 
+// 2. دالة رندر الجدول (الإمساكية)
+function renderImsakeya() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+
+    let html = `
+        <thead>
+            <tr>
+                <th>رمضان</th>
+                <th>التاريخ</th>
+                <th>الفجر</th>
+                <th>الظهر</th>
+                <th>العصر</th>
+                <th>المغرب</th>
+                <th>العشاء</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    RAMADAN_30_DAYS.forEach(d => {
+        const dayParts = d.date.split(" ");
+        const dayNumInMonth = parseInt(dayParts[0]);
+        let isToday = false;
+
+        // التحقق من اليوم الحالي لتمييزه بلون مختلف
+        if (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) isToday = true;
+        if (d.date.includes("مارس") && month === 3 && dayNumInMonth === day) isToday = true;
+
+        html += `
+        <tr class="${isToday ? 'current-day-row' : ''}">
+            <td>${d.d}</td>
+            <td style="white-space: nowrap;">${formatDateWithDay(d.date)}</td> 
+            <td class="fajr-highlight">${adjustTime(d.f, currentOffset)}</td>
+            <td>${adjustTime(d.zh, currentOffset)}</td>
+            <td>${adjustTime(d.a, currentOffset)}</td>
+            <td class="maghrib-highlight">${adjustTime(d.m, currentOffset)}</td>
+            <td>${adjustTime(d.i, currentOffset)}</td>
+        </tr>`;
+    });
+
+    html += "</tbody>";
+    
+    const container = document.getElementById("imsakia-table") || document.getElementById("prayer-times");
+    if (container) {
+        container.innerHTML = html;
+    }
+}
+
+// 3. تسجيل الـ Service Worker لضمان عمل الأوفلاين
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker Registered!', reg))
+            .catch(err => console.error('Registration Failed!', err));
+    });
+}
+
+// استدعاء الرندر عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof RAMADAN_30_DAYS !== 'undefined') {
+        renderImsakeya();
+    }
+});
+ 
+ 
+ 
 /***********************
  * تعديل جلب السورة (إصلاح البسملة)
  ***********************/
