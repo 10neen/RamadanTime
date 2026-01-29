@@ -52,35 +52,44 @@
         <button onclick="showSection('quran')">📖 المصحف</button>
     </nav>
 
-    <section id="imsakeya">
-        <h2 class="section-title">إمساكية رمضان 2026</h2>
-        <div class="table-container">
-            <table class="prayer-table" id="imsakia-table">
-                <thead>
-                    <tr>
-                        <th>التاريخ</th>
-                        <th>فجر</th>
-                        <th>شروق</th>
-                        <th>ظهر</th>
-                        <th>عصر</th>
-                        <th>مغرب</th>
-                        <th>عشاء</th>
-                    </tr>
-                </thead>
-                <tbody id="prayer-times">
-                    </tbody>
-            </table>
+
+
+<div class="city-selector-container" style="text-align: center; margin: 15px auto; max-width: 90%;">
+    <label style="color: #8e7341; font-weight: bold; display: block; margin-bottom: 8px;">📍 اختر منطقتك لتعديل المواقيت:</label>
+    <select id="city-select" onchange="window.changeCity(this.value)" style="width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #8e7341; background: #fffcf5; font-family: 'Tajawal', sans-serif;">
+        <option value="cairo">القاهرة والجيزة (المرجع)</option>
+        <option value="alex">الإسكندرية (+3 دقايق)</option>
+        <option value="aswan">أسوان (-5 دقايق)</option>
+        <option value="ismailia">الإسماعيلية (-4 دقايق)</option>
+        <option value="tanta">طنطا (+1 دقيقة)</option>
+        <option value="asyut">أسيوط (0 دقيقة)</option>
+        <option value="sohag">سوهاج (-1 دقيقة)</option>
+        <option value="qena">قنا (-2 دقيقة)</option>
+        <option value="luxor">الأقصر (-3 دقايق)</option>
+        <option value="hurghada">الغردقة (-8 دقايق)</option>
+        <option value="matrouh">مرسى مطروح (+14 دقيقة)</option>
+        <option value="mansoura">المنصورة (0 دقيقة)</option>
+        <option value="damietta">دمياط (-1 دقيقة)</option>
+        <option value="port_said">بورسعيد (-5 دقايق)</option>
+        <option value="suez">السويس (-4 دقايق)</option>
+        <option value="minia">المنيا (+1 دقيقة)</option>
+        <option value="feyyum">الفيوم (+1 دقيقة)</option>
+        <option value="zagazig">الزقازيق (-1 دقيقة)</option>
+    </select>
+</div>
+
+<section id="imsakeya">
+    <h2 class="section-title">إمساكية رمضان 2026</h2>
+    <div class="table-container">
+        <table class="prayer-table" id="imsakia-table"></table>
+    </div>
+    
+    <div class="eid-section">
+        <div class="eid-card">
+            <span>🎊 صلاة عيد الفطر: الجمعة 20 مارس 2026 - الساعة 06:04 صباحاً</span>
         </div>
-        
-        <div class="eid-section">
-            <div class="eid-card">
-                <span>🎊 صلاة عيد الفطر: الجمعة 20 مارس 2026</span>
-                <span class="eid-time">الساعة 06:04 صباحاً</span>
-                <small>(بتوقيت القاهرة)</small>
-            </div>
-        </div>
-        <hr class="gold-hr">
-    </section>
+    </div>
+</section>
 
     <section id="sebha" style="display:none;">
         <h2 class="section-title">السبحة الإلكترونية والأذكار</h2>
