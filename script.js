@@ -1,43 +1,57 @@
 /***********************
  * 1️⃣ البيانات الأساسية (الإمساكية 2026)
- ***********************/
-const RAMADAN_30_DAYS = [
-    {d:1,date:"18 فبراير",f:"05:05 ص",zh:"12:09 م",a:"03:20 م",m:"05:46 م",i:"07:04 م"},
-    {d:2,date:"19 فبراير",f:"05:04 ص",zh:"12:09 م",a:"03:21 م",m:"05:47 م",i:"07:04 م"},
-    {d:3,date:"20 فبراير",f:"05:03 ص",zh:"12:09 م",a:"03:21 م",m:"05:47 م",i:"07:05 م"},
-    {d:4,date:"21 فبراير",f:"05:03 ص",zh:"12:09 م",a:"03:22 م",m:"05:48 م",i:"07:06 م"},
-    {d:5,date:"22 فبراير",f:"05:02 ص",zh:"12:08 م",a:"03:22 م",m:"05:49 م",i:"07:06 م"},
-    {d:6,date:"23 فبراير",f:"05:01 ص",zh:"12:08 م",a:"03:23 م",m:"05:50 م",i:"07:07 م"},
-    {d:7,date:"24 فبراير",f:"05:00 ص",zh:"12:08 م",a:"03:23 م",m:"05:50 م",i:"07:08 م"},
-    {d:8,date:"25 فبراير",f:"04:59 ص",zh:"12:08 م",a:"03:24 م",m:"05:51 م",i:"07:08 م"},
-    {d:9,date:"26 فبراير",f:"04:58 ص",zh:"12:08 م",a:"03:24 م",m:"05:52 م",i:"07:09 م"},
-    {d:10,date:"27 فبراير",f:"04:57 ص",zh:"12:08 م",a:"03:25 م",m:"05:53 م",i:"07:10 م"},
-    {d:11,date:"28 فبراير",f:"04:56 ص",zh:"12:08 م",a:"03:25 م",m:"05:53 م",i:"07:11 م"},
-    {d:12,date:"01 مارس",f:"04:55 ص",zh:"12:07 م",a:"03:25 م",m:"05:54 م",i:"07:11 م"},
-    {d:13,date:"02 مارس",f:"04:54 ص",zh:"12:07 م",a:"03:26 م",m:"05:55 م",i:"07:12 م"},
-    {d:14,date:"03 مارس",f:"04:53 ص",zh:"12:07 م",a:"03:26 م",m:"05:55 م",i:"07:13 م"},
-    {d:15,date:"04 مارس",f:"04:52 ص",zh:"12:07 م",a:"03:26 م",m:"05:56 م",i:"07:13 م"},
-    {d:16,date:"05 مارس",f:"04:50 ص",zh:"12:06 م",a:"03:27 م",m:"05:57 م",i:"07:14 م"},
-    {d:17,date:"06 مارس",f:"04:49 ص",zh:"12:06 م",a:"03:27 م",m:"05:57 م",i:"07:15 م"},
-    {d:18,date:"07 مارس",f:"04:48 ص",zh:"12:06 م",a:"03:27 م",m:"05:58 م",i:"07:15 م"},
-    {d:19,date:"08 مارس",f:"04:47 ص",zh:"12:06 م",a:"03:28 م",m:"05:59 م",i:"07:16 م"},
-    {d:20,date:"09 مارس",f:"04:46 ص",zh:"12:06 م",a:"03:28 م",m:"05:59 م",i:"07:16 م"},
-    {d:21,date:"10 مارس",f:"04:45 ص",zh:"12:05 م",a:"03:28 م",m:"06:00 م",i:"07:17 م"},
-    {d:22,date:"11 مارس",f:"04:44 ص",zh:"12:05 م",a:"03:29 م",m:"06:01 م",i:"07:18 م"},
-    {d:23,date:"12 مارس",f:"04:43 ص",zh:"12:05 م",a:"03:29 م",m:"06:01 م",i:"07:18 م"},
-    {d:24,date:"13 مارس",f:"04:42 ص",zh:"12:05 م",a:"03:29 م",m:"06:02 م",i:"07:19 م"},
-    {d:25,date:"14 مارس",f:"04:41 ص",zh:"12:04 م",a:"03:29 م",m:"06:02 م",i:"07:20 م"},
-    {d:26,date:"15 مارس",f:"04:40 ص",zh:"12:04 م",a:"03:30 م",m:"06:03 م",i:"07:20 م"},
-    {d:27,date:"16 مارس",f:"04:39 ص",zh:"12:04 م",a:"03:30 م",m:"06:04 م",i:"07:21 م"},
-    {d:28,date:"17 مارس",f:"04:38 ص",zh:"12:03 م",a:"03:30 م",m:"06:04 م",i:"07:21 م"},
-    {d:29,date:"18 مارس",f:"04:37 ص",zh:"12:03 م",a:"03:30 م",m:"06:05 م",i:"07:22 م"},
-    {d:30,date:"19 مارس",f:"04:36 ص",zh:"12:03 م",a:"03:31 م",m:"06:06 م",i:"07:22 م"}
-];
-
-/***********************
- * 2️⃣ التنقل وواجهة الإمساكية
+ * رمضان 1447 هـ - أول رمضان: 19 فبراير 2026 (القاهرة)
  ***********************/
  
+ 
+ /***********************
+ * 1️⃣ البيانات الأساسية (الإمساكية 2026)
+ * رمضان 1447 هـ - أول رمضان: 19 فبراير 2026 (القاهرة)
+ * مع إضافة وقت الشروق
+ ***********************/
+const RAMADAN_30_DAYS = [
+    {d:1, date:"19 فبراير", f:"05:04 ص", sh:"06:23 ص", zh:"12:09 م", a:"03:21 م", m:"05:47 م", i:"07:04 م"},
+    {d:2, date:"20 فبراير", f:"05:03 ص", sh:"06:22 ص", zh:"12:09 م", a:"03:21 م", m:"05:47 م", i:"07:05 م"},
+    {d:3, date:"21 فبراير", f:"05:03 ص", sh:"06:21 ص", zh:"12:09 م", a:"03:22 م", m:"05:48 م", i:"07:06 م"},
+    {d:4, date:"22 فبراير", f:"05:02 ص", sh:"06:20 ص", zh:"12:08 م", a:"03:22 م", m:"05:49 م", i:"07:06 م"},
+    {d:5, date:"23 فبراير", f:"05:01 ص", sh:"06:19 ص", zh:"12:08 م", a:"03:23 م", m:"05:50 م", i:"07:07 م"},
+    {d:6, date:"24 فبراير", f:"05:00 ص", sh:"06:18 ص", zh:"12:08 م", a:"03:23 م", m:"05:50 م", i:"07:08 م"},
+    {d:7, date:"25 فبراير", f:"04:59 ص", sh:"06:17 ص", zh:"12:08 م", a:"03:24 م", m:"05:51 م", i:"07:08 م"},
+    {d:8, date:"26 فبراير", f:"04:58 ص", sh:"06:16 ص", zh:"12:08 م", a:"03:24 م", m:"05:52 م", i:"07:09 م"},
+    {d:9, date:"27 فبراير", f:"04:57 ص", sh:"06:15 ص", zh:"12:08 م", a:"03:25 م", m:"05:53 م", i:"07:10 م"},
+    {d:10, date:"28 فبراير", f:"04:56 ص", sh:"06:14 ص", zh:"12:08 م", a:"03:25 م", m:"05:53 م", i:"07:11 م"},
+    {d:11, date:"01 مارس", f:"04:55 ص", sh:"06:13 ص", zh:"12:07 م", a:"03:25 م", m:"05:54 م", i:"07:11 م"},
+    {d:12, date:"02 مارس", f:"04:54 ص", sh:"06:12 ص", zh:"12:07 م", a:"03:26 م", m:"05:55 م", i:"07:12 م"},
+    {d:13, date:"03 مارس", f:"04:53 ص", sh:"06:11 ص", zh:"12:07 م", a:"03:26 م", m:"05:55 م", i:"07:13 م"},
+    {d:14, date:"04 مارس", f:"04:52 ص", sh:"06:10 ص", zh:"12:07 م", a:"03:26 م", m:"05:56 م", i:"07:13 م"},
+    {d:15, date:"05 مارس", f:"04:50 ص", sh:"06:09 ص", zh:"12:06 م", a:"03:27 م", m:"05:57 م", i:"07:14 م"},
+    {d:16, date:"06 مارس", f:"04:49 ص", sh:"06:08 ص", zh:"12:06 م", a:"03:27 م", m:"05:57 م", i:"07:15 م"},
+    {d:17, date:"07 مارس", f:"04:48 ص", sh:"06:07 ص", zh:"12:06 م", a:"03:27 م", m:"05:58 م", i:"07:15 م"},
+    {d:18, date:"08 مارس", f:"04:47 ص", sh:"06:06 ص", zh:"12:06 م", a:"03:28 م", m:"05:59 م", i:"07:16 م"},
+    {d:19, date:"09 مارس", f:"04:46 ص", sh:"06:05 ص", zh:"12:06 م", a:"03:28 م", m:"05:59 م", i:"07:16 م"},
+    {d:20, date:"10 مارس", f:"04:45 ص", sh:"06:04 ص", zh:"12:05 م", a:"03:28 م", m:"06:00 م", i:"07:17 م"},
+    {d:21, date:"11 مارس", f:"04:44 ص", sh:"06:03 ص", zh:"12:05 م", a:"03:29 م", m:"06:01 م", i:"07:18 م"},
+    {d:22, date:"12 مارس", f:"04:43 ص", sh:"06:02 ص", zh:"12:05 م", a:"03:29 م", m:"06:01 م", i:"07:18 م"},
+    {d:23, date:"13 مارس", f:"04:42 ص", sh:"06:01 ص", zh:"12:05 م", a:"03:29 م", m:"06:02 م", i:"07:19 م"},
+    {d:24, date:"14 مارس", f:"04:41 ص", sh:"06:00 ص", zh:"12:04 م", a:"03:29 م", m:"06:02 م", i:"07:20 م"},
+    {d:25, date:"15 مارس", f:"04:40 ص", sh:"05:59 ص", zh:"12:04 م", a:"03:30 م", m:"06:03 م", i:"07:20 م"},
+    {d:26, date:"16 مارس", f:"04:39 ص", sh:"05:58 ص", zh:"12:04 م", a:"03:30 م", m:"06:04 م", i:"07:21 م"},
+    {d:27, date:"17 مارس", f:"04:38 ص", sh:"05:57 ص", zh:"12:03 م", a:"03:30 م", m:"06:04 م", i:"07:21 م"},
+    {d:28, date:"18 مارس", f:"04:37 ص", sh:"05:56 ص", zh:"12:03 م", a:"03:30 م", m:"06:05 م", i:"07:22 م"},
+    {d:29, date:"19 مارس", f:"04:36 ص", sh:"05:55 ص", zh:"12:03 م", a:"03:31 م", m:"06:06 م", i:"07:22 م"},
+    {d:30, date:"20 مارس", f:"04:35 ص", sh:"05:54 ص", zh:"12:02 م", a:"03:31 م", m:"06:06 م", i:"07:23 م"}
+];
+ 
+ 
+
+/***********************
+ * 2️⃣ إعدادات عامة - إلغاء المحافظات
+ ***********************/
+let currentOffset = 0; // تثبيت القاهرة
+
+/***********************
+ * 3️⃣ التنقل وواجهة الإمساكية
+ ***********************/
 function showSection(id) {
     document.querySelectorAll("section").forEach(sec => {
         sec.style.display = "none";
@@ -52,32 +66,34 @@ function showSection(id) {
 
 // دالة لتنسيق التاريخ مع اسم اليوم
 function formatDateWithDay(dateStr) {
-    const days = ["أحد","إثنين","ثلاث","أربع","خميس","جمعة","سبت"];
-    const months = {"فبراير":2,"مارس":3};
+    const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    const months = {"فبراير": 2, "مارس": 3};
 
     const [dayNum, monthName] = dateStr.split(" ");
     const monthNum = months[monthName];
     const date = new Date(2026, monthNum - 1, parseInt(dayNum, 10));
     const dayName = days[date.getDay()];
-    return `${dayName} ${monthNum}/${dayNum} `;
+    return `${dayName} ${dayNum} ${monthName}`;
 }
 
 
 
+// دالة عرض الإمساكية
+
 
 function renderImsakeya() {
-    const tableBody = document.getElementById("prayer-times");
     const today = new Date();
     const day = today.getDate();
     const month = today.getMonth() + 1;
+    const currentDayOfWeek = today.getDay(); // 0 = الأحد, 1 = الاثنين, ..., 5 = الجمعة
 
-    // بناء العناوين داخل الـ JS لضمان عدم التكرار
     let html = `
         <thead>
             <tr>
                 <th>رمضان</th>
-                <th>التاريخ</th>
+                <th>اليوم والتاريخ</th>
                 <th>الفجر</th>
+                <th>الشروق</th>
                 <th>الظهر</th>
                 <th>العصر</th>
                 <th>المغرب</th>
@@ -89,26 +105,84 @@ function renderImsakeya() {
     RAMADAN_30_DAYS.forEach(d => {
         const dayNumInMonth = parseInt(d.date.split(" ")[0]);
         let isToday = false;
-
+        let isFriday = false;
+        
+        // تحديد اليوم الحالي
         if (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) isToday = true;
         if (d.date.includes("مارس") && month === 3 && dayNumInMonth === day) isToday = true;
+        
+        // تحديد يوم الجمعة
+        const formattedDate = formatDateWithDay(d.date);
+        if (formattedDate.includes("الجمعة")) isFriday = true;
 
-        html += `
-        <tr class="${isToday ? 'current-day-row' : ''}">
-            <td>${d.d}</td>
-            <td>${d.date}</td>
-            <td class="fajr-highlight">${adjustTime(d.f, currentOffset)}</td>
-            <td>${adjustTime(d.zh, currentOffset)}</td>
-            <td>${adjustTime(d.a, currentOffset)}</td>
-            <td class="maghrib-highlight">${adjustTime(d.m, currentOffset)}</td>
-            <td>${adjustTime(d.i, currentOffset)}</td>
-        </tr>`;
+        // تحديد وقت الصلاة الحالي
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        
+        // تحويل أوقات الصلاة إلى دقائق للمقارنة
+        const fajrMinutes = convertTimeToMinutes(d.f);
+        const shorooqMinutes = convertTimeToMinutes(d.sh);
+        const zuhrMinutes = convertTimeToMinutes(d.zh);
+const asrMinutes = convertTimeToMinutes(d.a);
+
+        const maghribMinutes = convertTimeToMinutes(d.m);
+        const ishaMinutes = convertTimeToMinutes(d.i);
+        
+        // تحديد الصلاة الحالية
+        let currentPrayer = '';
+        if (currentTime < fajrMinutes) currentPrayer = 'before-fajr';
+        else if (currentTime < shorooqMinutes) currentPrayer = 'fajr';
+        else if (currentTime < zuhrMinutes) currentPrayer = 'shorooq';
+        else if (currentTime < asrMinutes) currentPrayer = 'zuhr';
+        else if (currentTime < maghribMinutes) currentPrayer = 'asr';
+        else if (currentTime < ishaMinutes) currentPrayer = 'maghrib';
+        else currentPrayer = 'isha';
+
+// بدل ما نستخدم class واحد، نستخدم class خاص بكل صلاة
+html += `
+<tr class="${isToday ? 'current-day-row' : ''} ${isFriday ? 'friday-row' : ''}">
+    <td><span class="ramadan-day-badge">${d.d}</span></td>
+    <td class="${isFriday ? 'friday-text' : ''}">${formattedDate}</td>
+    <td class="fajr-highlight ${currentPrayer === 'fajr' ? 'prayer-now' : ''}">${d.f}</td>
+    <td class="shorooq-highlight ${currentPrayer === 'shorooq' ? 'prayer-now' : ''}">${d.sh}</td>
+    <td class="${currentPrayer === 'zuhr' ? 'prayer-now zuhr-time' : ''}">${d.zh}</td>
+    <td class="${currentPrayer === 'asr' ? 'prayer-now asr-time' : ''}">${d.a}</td>
+    <td class="maghrib-highlight ${currentPrayer === 'maghrib' ? 'prayer-now' : ''}">${d.m}</td>
+    <td class="${currentPrayer === 'isha' ? 'prayer-now isha-time' : ''}">${d.i}</td>
+</tr>`;
+
+
     });
 
     html += "</tbody>";
-    // هنا بنحدث الجدول بالكامل (الهيدر والبودي)
-    document.getElementById("imsakia-table").innerHTML = html;
+    
+    const tableElement = document.getElementById("imsakia-table");
+    if (tableElement) {
+        tableElement.innerHTML = html;
+    }
 }
+
+// دالة مساعدة لتحويل الوقت إلى دقائق
+function convertTimeToMinutes(timeStr) {
+    if (!timeStr) return 0;
+    let [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    
+    if (modifier === 'م' && hours !== 12) hours += 12;
+    if (modifier === 'ص' && hours === 12) hours = 0;
+    
+    return hours * 60 + minutes;
+}
+
+
+// تحديث التمييز كل دقيقة
+function updatePrayerHighlight() {
+    renderImsakeya();
+}
+
+// تشغيل التحديث كل دقيقة
+setInterval(updatePrayerHighlight, 60000);
+
 
 
 
@@ -122,154 +196,265 @@ function renderImsakeya() {
 
 
 /***********************
- * 3️⃣ السبحة الإلكترونية والأذكار (النسخة الكاملة)
+ * 4️⃣ السبحة الإلكترونية والأذكار
+ * على منهج أهل السنة والجماعة
  ***********************/
+
 const AZKAR_MODES = {
-    // تسبيح دبر كل صلاة
-	
-	
-	// أذكار ما بعد الصلاة (السنة)
+    // ========== أذكار دبر الصلوات المفروضة ==========
     sunna: [
         { 
-            text: "أَسْتَغْفِرُ اللَّهَ (ثلاثاً) .. اللَّهُمَّ أَنْتَ السَّلامُ وَمِنْكَ السَّلامُ، تَبَارَكْتَ يَا ذَا الْجَلالِ وَالإِكْرَامِ", 
-            limit: 1 
+            text: "أَسْتَغْفِرُ اللَّهَ (ثلاثاً) . اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ", 
+            limit: 1,
+            type: "مرة واحدة"
         },
         { 
-            text: "سُبْحَانَ اللَّهِ", 
-            limit: 33 
-        },
-        { 
-            text: "الْحَمْدُ لِلَّهِ", 
-            limit: 33 
-        },
-        { 
-            text: "اللَّهُ أَكْبَرُ", 
-            limit: 33 
-        },
-        { 
-            text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ (تَمَامَ الْمِائَةِ)", 
-            limit: 1 
-        },
-        { 
-            text: "قراءة آية الكرسي: {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}", 
-            limit: 1 
-        }
-    ],
-	
-	
-	
-	// أذكار الصباح
-    sabah: [
-        { 
-            text: "أعوذ بالله من الشيطان الرجيم: {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}", 
-            limit: 1 
-        },
-        { 
-            text: "بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
-            limit: 3 
-        },
-        { 
-            text: "اللَّهُمَّ أَنْتَ رَبِّي لا إِلَهَ إِلا أَنْتَ ، خَلَقْتَنِي وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلا أَنْتَ", 
-            limit: 1 
-        },
-        { 
-            text: "رَضِيتُ بِاللهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
-            limit: 3 
-        },
-        { 
-            text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ", 
-            limit: 1 
-        },
-        { 
-            text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ ، عَدَدَ خَلْقِهِ ، وَرِضَا نَفْسِهِ ، وَزِنَةَ عَرْشِهِ ، وَمِدَادَ كَلِمَاتِهِ", 
-            limit: 3 
-        },
-        { 
-            text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", 
-            limit: 1 
-        }
-    ],
-	
-	
-	
-	// أذكار المساء
-    masa: [
-        { 
-            text: "أعوذ بالله من الشيطان الرجيم: {اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ}", 
-            limit: 1 
-        },
-        { 
-            text: "بِسْمِ اللهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
-            limit: 3 
-        },
-        { 
-            text: "أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ", 
-            limit: 3 
-        },
-        { 
-            text: "اللَّهُمَّ أَنْتَ رَبِّي لا إِلَهَ إِلا أَنْتَ ، خَلَقْتَنِي وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لا يَغْفِرُ الذُّنُوبَ إِلا أَنْتَ", 
-            limit: 1 
-        },
-        { 
-            text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", 
-            limit: 1 
-        },
-        { 
-            text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ", 
-            limit: 1 
-        },
-        { 
-            text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ", 
-            limit: 100 
-        }
-    ],
-	
-	
-	
-	
-	
-	// أذكار النوم
-    sleep: [
-        { 
-            text: "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ", 
-            limit: 1 
-        },
-        { 
-            text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ", 
-            limit: 3 
-        },
-        { 
-            text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا", 
-            limit: 1 
+            text: "اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ", 
+            limit: 1,
+            type: "مرة واحدة"
         },
         { 
             text: "سُبْحَانَ اللَّهِ", 
-            limit: 33 
+            limit: 33,
+            type: "٣٣ مرة"
         },
         { 
             text: "الْحَمْدُ لِلَّهِ", 
-            limit: 33 
+            limit: 33,
+            type: "٣٣ مرة"
         },
         { 
             text: "اللَّهُ أَكْبَرُ", 
-            limit: 34 
+            limit: 33,
+            type: "٣٣ مرة"
         },
         { 
-            text: "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لا مَلْجَأَ وَلا مَنْجَا مِنْكَ إِلا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ", 
-            limit: 1 
+            text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ", 
+            limit: 1,
+            type: "ختم التسبيح"
+        },
+        { 
+            text: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ، وَشُكْرِكَ، وَحُسْنِ عِبَادَتِكَ", 
+            limit: 1,
+            type: "دعاء بعد السلام"
         }
     ],
-	
-	
-	
-		
-    estighfar: [{ text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ", limit: 100 }],
-    salat: [{ text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ", limit: 100 }],
-    hawqala: [{ text:  "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ", limit: 100 }]
 
-	
+    // ========== أذكار الصباح الكاملة ==========
+    sabah: [
+        { 
+            text: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+            limit: 1,
+            type: "آية الكرسي - مرة"
+        },
+        { 
+            text: "قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+            limit: 3,
+            type: "الإخلاص - ٣ مرات"
+        },
+        { 
+            text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+            limit: 3,
+            type: "الفلق - ٣ مرات"
+        },
+        { 
+            text: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ",
+            limit: 3,
+            type: "الناس - ٣ مرات"
+        },
+        { 
+            text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+            limit: 1,
+            type: "سيد الاستغفار - مرة"
+        },
+        { 
+            text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ",
+            limit: 3,
+            type: "٣ مرات"
+        },
+        { 
+            text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+            limit: 3,
+            type: "٣ مرات"
+        },
+        { 
+            text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا",
+            limit: 3,
+            type: "٣ مرات"
+        },
+        { 
+            text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ",
+            limit: 3,
+            type: "٣ مرات"
+        }
+    ],
 
+    // ========== أذكار المساء الكاملة ==========
+    masa: [
+        { 
+            text: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+            limit: 1,
+            type: "آية الكرسي - مرة"
+        },
+        { 
+            text: "قُلْ هُوَ اللَّهُ أَحَدٌ * اللَّهُ الصَّمَدُ * لَمْ يَلِدْ وَلَمْ يُولَدْ * وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+            limit: 3,
+            type: "الإخلاص - ٣ مرات"
+        },
+        { 
+            text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ * مِن شَرِّ مَا خَلَقَ * وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ * وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ * وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+            limit: 3,
+            type: "الفلق - ٣ مرات"
+        },
+        { 
+            text: "قُلْ أَعُوذُ بِرَبِّ النَّاسِ * مَلِكِ النَّاسِ * إِلَهِ النَّاسِ * مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ * الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ * مِنَ الْجِنَّةِ وَالنَّاسِ",
+            limit: 3,
+            type: "الناس - ٣ مرات"
+        },
+        { 
+            text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+            limit: 1,
+            type: "سيد الاستغفار - مرة"
+        },
+        { 
+            text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ",
+            limit: 3,
+            type: "٣ مرات"
+        },
+        { 
+            text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+            limit: 3,
+            type: "٣ مرات"
+        }
+    ],
+
+    // ========== أذكار النوم ==========
+    sleep: [
+        { 
+            text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",
+            limit: 3,
+            type: "٣ مرات"
+        },
+        { 
+            text: "سُبْحَانَ اللَّهِ",
+            limit: 33,
+            type: "٣٣ مرة"
+        },
+        { 
+            text: "الْحَمْدُ لِلَّهِ",
+            limit: 33,
+            type: "٣٣ مرة"
+        },
+        { 
+            text: "اللَّهُ أَكْبَرُ",
+            limit: 34,
+            type: "٣٤ مرة"
+        },
+        { 
+            text: "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ",
+            limit: 1,
+            type: "مرة"
+        },
+        { 
+            text: "آيَةُ الْكُرْسِيِّ - اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...",
+            limit: 1,
+            type: "مرة"
+        }
+    ],
+
+    // ========== الاستغفار ==========
+    estighfar: [
+        { 
+            text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ",
+            limit: 100,
+            type: "١٠٠ مرة"
+        },
+        { 
+            text: "رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ",
+            limit: 100,
+            type: "١٠٠ مرة"
+        }
+    ],
+
+    // ========== الصلاة على النبي ﷺ - بأشرف الصيغ ==========
+    salat: [
+        { 
+            text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
+            limit: 100,
+            type: "الصلاة الإبراهيمية"
+        },
+        { 
+            text: "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلِّمْ",
+            limit: 100,
+            type: "صيغة جامعة"
+        },
+        { 
+            text: "اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ",
+            limit: 100,
+            type: "صيغة كاملة"
+        }
+    ],
+
+    // ========== الحوقلة ==========
+    hawqala: [
+        { 
+            text: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ",
+            limit: 100,
+            type: "١٠٠ مرة"
+        },
+        { 
+            text: "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+            limit: 7,
+            type: "٧ مرات"
+        }
+    ],
+
+    // ========== التهليل والتكبير ==========
+    tahlil: [
+        { 
+            text: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+            limit: 100,
+            type: "١٠٠ مرة"
+        },
+        { 
+            text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ",
+            limit: 100,
+            type: "١٠٠ مرة"
+        }
+    ]
 };
+
+
+/***********************
+ * السبحة الإلكترونية والأذكار - النسخة المطورة
+ * متوافقة مع AZKAR_MODES الجديد
+ ***********************/
+
 let currentMode = "sunna";
 let c = 0, phase = 0;
 
@@ -277,46 +462,558 @@ window.setAzkar = function(mode, btn) {
     currentMode = mode;
     resetSebha();
 
-    document.querySelectorAll('.opt-btn')
-        .forEach(b => b.classList.remove('active-opt'));
+    // تحديث نوع الذكر المعروض
+    const typeEl = document.getElementById("sebha-type");
+    if (typeEl && AZKAR_MODES[mode] && AZKAR_MODES[mode][0]) {
+        typeEl.innerText = AZKAR_MODES[mode][0].type || "";
+    }
 
+    // تحديث الأزرار النشطة
+    document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active-opt'));
     if (btn) btn.classList.add('active-opt');
 };
 
-document.getElementById("sebha-btn").onclick = () => {
-    const data = AZKAR_MODES[currentMode];
-    c++;
-    if (c > data[phase].limit) {
-        phase++;
-        c = 1;
-        if (phase >= data.length) {
-            alert("تقبل الله طاعتك");
-            resetSebha();
-            return;
-        }
+// تأكد من وجود العناصر قبل إضافة الحدث
+document.addEventListener('DOMContentLoaded', function() {
+    const sebhaBtn = document.getElementById("sebha-btn");
+    if (sebhaBtn) {
+        sebhaBtn.onclick = () => {
+            const data = AZKAR_MODES[currentMode];
+            
+            // التأكد من وجود البيانات
+            if (!data || !data[phase]) {
+                resetSebha();
+                return;
+            }
+            
+            c++;
+            
+            // التحقق من تجاوز الحد
+            if (c > data[phase].limit) {
+                phase++;
+                c = 1;
+                
+                // التحقق من نهاية الأذكار
+                if (phase >= data.length) {
+                    // رسالة أجمل مع التأكيد على إتمام الورد
+                    alert("✅ تقبل الله طاعتك ✨\nأتممت هذا الورد بنجاح");
+                    
+                    // اهتزاز مميز عند الإتمام
+                    if ("vibrate" in navigator) {
+                        navigator.vibrate([100, 50, 100]); // اهتزاز ثلاث مرات
+                    }
+                    
+                    resetSebha();
+                    return;
+                }
+            }
+            
+            // تحديث النص والعدد
+            const textEl = document.getElementById("sebha-text");
+            const countEl = document.getElementById("sebha-count");
+            const typeEl = document.getElementById("sebha-type");
+            
+            if (textEl) textEl.innerText = data[phase].text;
+            if (countEl) countEl.innerText = c;
+            
+            // تحديث نوع الذكر الحالي
+            if (typeEl && data[phase].type) {
+                typeEl.innerText = data[phase].type;
+            }
+            
+            // اهتزاز خفيف مع كل تسبيحة
+            if ("vibrate" in navigator) navigator.vibrate(30);
+        };
     }
-    document.getElementById("sebha-text").innerText = data[phase].text;
-    document.getElementById("sebha-count").innerText = c;
-    if ("vibrate" in navigator) navigator.vibrate(50);
-};
+    
+    // تهيئة السبحة عند تحميل الصفحة
+    setTimeout(() => {
+        resetSebha();
+        // تحديث نوع الذكر للوضع الافتراضي
+        const typeEl = document.getElementById("sebha-type");
+        if (typeEl && AZKAR_MODES[currentMode] && AZKAR_MODES[currentMode][0]) {
+            typeEl.innerText = AZKAR_MODES[currentMode][0].type || "";
+        }
+    }, 100);
+});
 
 window.resetSebha = function() {
-    c = 0; phase = 0;
+    c = 0; 
+    phase = 0;
     const data = AZKAR_MODES[currentMode];
-    document.getElementById("sebha-count").innerText = 0;
-    document.getElementById("sebha-text").innerText = data[0].text;
+    
+    const countEl = document.getElementById("sebha-count");
+    const textEl = document.getElementById("sebha-text");
+    const typeEl = document.getElementById("sebha-type");
+    
+    if (countEl) countEl.innerText = 0;
+    if (textEl && data && data[0]) textEl.innerText = data[0].text;
+    if (typeEl && data && data[0]) typeEl.innerText = data[0].type || "";
 };
 
+// دالة إضافية للتبديل السريع بين الأذكار (اختياري)
+window.nextAzkar = function() {
+    // يمكنك إضافة هذه الدالة لو عايز تنتقل للذكر التالي يدوياً
+    const data = AZKAR_MODES[currentMode];
+    if (phase < data.length - 1) {
+        phase++;
+        c = 1;
+    } else {
+        phase = 0;
+        c = 1;
+    }
+    
+    const textEl = document.getElementById("sebha-text");
+    const countEl = document.getElementById("sebha-count");
+    const typeEl = document.getElementById("sebha-type");
+    
+    if (textEl) textEl.innerText = data[phase].text;
+    if (countEl) countEl.innerText = c;
+    if (typeEl && data[phase].type) typeEl.innerText = data[phase].type;
+};
+
+
+
+
 /***********************
- * 4️⃣ المصحف والتفسير المطور
+ * 🔔 نظام التنبيهات الذكية - نسخة متكاملة مع الحفاظ على التنسيق
  ***********************/
- window.changeFontSize = function(delta) {
+
+// متغيرات التنبيهات - مع إضافة التنبيهات الجديدة
+let notificationSettings = {
+    suhoor: true,
+    fajr: true,
+    maghrib: true,
+    taraweeh: true,
+    isha: true,        // ✅ تنبيه العشاء
+    jummah: true,      // ✅ تنبيه الجمعة
+    lastTen: true,     // ✅ تنبيه آخر 10 أيام
+    eid: true          // ✅ تنبيه العيد
+};
+
+let notificationTimers = [];
+let permissionRequested = false;
+
+// طلب إذن التنبيهات - مرة واحدة فقط
+function requestNotificationPermission() {
+    if (permissionRequested) return;
+    
+    if (!("Notification" in window)) {
+        console.log("متصفحك لا يدعم التنبيهات");
+        return;
+    }
+    
+    if (Notification.permission === "granted") {
+        permissionRequested = true;
+        showNotificationStatus("التنبيهات مفعلة ✅", "success", 2000);
+        return;
+    }
+    
+    if (Notification.permission === "denied") {
+        permissionRequested = true;
+        showNotificationStatus("التنبيهات معطلة ❌", "error", 2000);
+        return;
+    }
+    
+    permissionRequested = true;
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            showNotificationStatus("تم تفعيل التنبيهات ✅", "success", 2000);
+            setupAllNotifications();
+        } else {
+            showNotificationStatus("تم رفض التنبيهات ❌", "error", 2000);
+        }
+    });
+}
+
+// عرض حالة التنبيهات
+function showNotificationStatus(message, type, duration = 3000) {
+    const statusEl = document.getElementById('notification-status');
+    if (statusEl) {
+        statusEl.innerText = message;
+        statusEl.style.color = type === 'success' ? '#27ae60' : '#e74c3c';
+        statusEl.style.opacity = '1';
+        statusEl.style.transition = 'opacity 0.5s';
+        
+        setTimeout(() => {
+            statusEl.style.opacity = '0';
+            setTimeout(() => {
+                statusEl.innerText = '';
+            }, 500);
+        }, duration);
+    }
+}
+
+// حفظ إعدادات التنبيهات - مع العناصر الجديدة
+window.saveNotificationSettings = function() {
+    notificationSettings = {
+        suhoor: document.getElementById('notify-suhoor')?.checked ?? true,
+        fajr: document.getElementById('notify-fajr')?.checked ?? true,
+        maghrib: document.getElementById('notify-maghrib')?.checked ?? true,
+        taraweeh: document.getElementById('notify-taraweeh')?.checked ?? true,
+        isha: document.getElementById('notify-isha')?.checked ?? true,
+        jummah: document.getElementById('notify-jummah')?.checked ?? true,
+        lastTen: document.getElementById('notify-lastten')?.checked ?? true,
+        eid: document.getElementById('notify-eid')?.checked ?? true
+    };
+    
+    localStorage.setItem('notificationSettings', JSON.stringify(notificationSettings));
+    showNotificationStatus("تم حفظ الإعدادات 💾", "success", 2000);
+    
+    clearAllTimers();
+    setupAllNotifications();
+};
+
+// تحميل الإعدادات المحفوظة
+function loadNotificationSettings() {
+    const saved = localStorage.getItem('notificationSettings');
+    if (saved) {
+        try {
+            notificationSettings = JSON.parse(saved);
+            
+            // تحديث واجهة المستخدم
+            const ids = ['suhoor', 'fajr', 'maghrib', 'taraweeh', 'isha', 'jummah', 'lastten', 'eid'];
+            ids.forEach(id => {
+                const el = document.getElementById(`notify-${id}`);
+                if (el) el.checked = notificationSettings[id] ?? true;
+            });
+            
+        } catch (e) {
+            console.log("خطأ في تحميل الإعدادات");
+        }
+    }
+}
+
+// إرسال تنبيه
+function sendNotification(title, body) {
+    if ("vibrate" in navigator) {
+        navigator.vibrate([200, 100, 200]);
+    }
+    
+    if ("Notification" in window && Notification.permission === "granted") {
+        try {
+            new Notification(title, {
+                body: body,
+                icon: 'ramadan-fanous.png',
+                badge: 'ramadan-fanous.png',
+                tag: 'ramadan-' + Date.now(),
+                silent: false,
+                requireInteraction: false
+            });
+            console.log(`✅ تم إرسال تنبيه: ${title}`);
+        } catch (e) {
+            console.log("خطأ في إرسال التنبيه:", e);
+        }
+    }
+}
+
+// اختبار التنبيهات
+window.testNotification = function() {
+    sendNotification(
+        "🔔 اختبار التنبيهات",
+        "التنبيهات شغالة ✅ رمضان كريم 🌙"
+    );
+    showNotificationStatus("تم إرسال تنبيه اختباري", "success", 1500);
+};
+
+// حساب وقت الصلاة
+function getPrayerTime(prayerName) {
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    
+    const todayData = RAMADAN_30_DAYS.find(d => {
+        const dayNum = parseInt(d.date.split(" ")[0]);
+        return (d.date.includes("فبراير") && month === 2 && dayNum === day) ||
+               (d.date.includes("مارس") && month === 3 && dayNum === day);
+    });
+    
+    if (!todayData) return null;
+    
+    switch(prayerName) {
+        case 'fajr': return todayData.f;
+        case 'maghrib': return todayData.m;
+        case 'isha': return todayData.i;
+        default: return null;
+    }
+}
+
+// ========== التنبيهات الذكية الجديدة ==========
+
+// 1️⃣ تنبيه العشاء (للتراويح)
+function scheduleIshaNotification() {
+    if (!notificationSettings.isha) return null;
+    
+    const now = new Date();
+    const ishaTime = getPrayerTime('isha');
+    
+    if (!ishaTime) return null;
+    
+    try {
+        let [time, modifier] = ishaTime.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+        
+        if (modifier === 'م' && hours !== 12) hours += 12;
+        if (modifier === 'ص' && hours === 12) hours = 0;
+        
+        const ishaDate = new Date(now);
+        ishaDate.setHours(hours, minutes - 15, 0, 0); // قبل العشاء بـ 15 دقيقة
+        
+        if (ishaDate < now) {
+            ishaDate.setDate(ishaDate.getDate() + 1);
+        }
+        
+        const timeUntil = ishaDate - now;
+        
+        if (timeUntil > 0 && timeUntil < 24 * 60 * 60 * 1000) {
+            return setTimeout(() => {
+                sendNotification(
+                    '🕌 تنبيه صلاة العشاء',
+                    'باقي 15 دقيقة على صلاة العشاء - استعد لصلاة التراويح ✨'
+                );
+            }, timeUntil);
+        }
+    } catch (e) {
+        console.log("خطأ في تنبيه العشاء");
+    }
+    return null;
+}
+
+// 2️⃣ تنبيه الجمعة
+function scheduleJummahNotification() {
+    if (!notificationSettings.jummah) return null;
+    
+    const now = new Date();
+    if (now.getDay() !== 5) return null; // 5 = الجمعة
+    
+    try {
+        const jummahDate = new Date(now);
+        jummahDate.setHours(12, 30, 0, 0);
+        
+        if (jummahDate > now) {
+            const timeUntil = jummahDate - now;
+            if (timeUntil < 24 * 60 * 60 * 1000) {
+                return setTimeout(() => {
+                    sendNotification(
+                        '🕌 تنبيه صلاة الجمعة',
+                        'حان وقت صلاة الجمعة - لا تنسَ الاغتسال والتبكير ✨'
+                    );
+                }, timeUntil);
+            }
+        }
+    } catch (e) {
+        console.log("خطأ في تنبيه الجمعة");
+    }
+    return null;
+}
+
+// 3️⃣ تنبيه آخر 10 أيام
+function scheduleLastTenNotification() {
+    if (!notificationSettings.lastTen) return null;
+    
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    
+    const isLastTen = (month === 3 && day >= 11) || (month === 2 && day >= 28);
+    if (!isLastTen) return null;
+    
+    try {
+        const lastTenDate = new Date(now);
+        lastTenDate.setHours(21, 0, 0, 0);
+        
+        if (lastTenDate < now) {
+            lastTenDate.setDate(lastTenDate.getDate() + 1);
+        }
+        
+        const timeUntil = lastTenDate - now;
+        
+        if (timeUntil > 0 && timeUntil < 24 * 60 * 60 * 1000) {
+            const messages = [
+                '🌙 تحروا ليلة القدر في العشر الأواخر من رمضان',
+                '✨ ليلة القدر خير من ألف شهر - لا تفرط فيها',
+                '🤲 قيام ليلة القدر يغفر ما تقدم من الذنب',
+                '🌟 التمسوا ليلة القدر في الوتر من العشر الأواخر'
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            
+            return setTimeout(() => {
+                sendNotification('🌙 تنبيه العشر الأواخر', randomMsg);
+            }, timeUntil);
+        }
+    } catch (e) {
+        console.log("خطأ في تنبيه آخر 10 أيام");
+    }
+    return null;
+}
+
+// 4️⃣ تنبيه العيد
+function scheduleEidNotification() {
+    if (!notificationSettings.eid) return null;
+    
+    const now = new Date();
+    const eidDate = new Date(2026, 2, 21);
+    const dayBeforeEid = new Date(eidDate);
+    dayBeforeEid.setDate(eidDate.getDate() - 1);
+    
+    try {
+        // قبل العيد بيوم
+        if (now.toDateString() === dayBeforeEid.toDateString()) {
+            const reminderDate = new Date(now);
+            reminderDate.setHours(20, 0, 0, 0);
+            
+            if (reminderDate > now) {
+                return setTimeout(() => {
+                    sendNotification(
+                        '🎊 تنبيه عيد الفطر',
+                        'غداً عيد الفطر المبارك - تقبل الله منا ومنكم صالح الأعمال 🌙'
+                    );
+                }, reminderDate - now);
+            }
+        }
+        
+        // صباح العيد
+        if (now.toDateString() === eidDate.toDateString()) {
+            const eidMorningDate = new Date(now);
+            eidMorningDate.setHours(6, 0, 0, 0);
+            
+            if (eidMorningDate > now) {
+                return setTimeout(() => {
+                    sendNotification(
+                        '🎊 صلاة عيد الفطر',
+                        'صلاة العيد الساعة 06:04 صباحاً - كل عام وأنتم بخير 🌙'
+                    );
+                }, eidMorningDate - now);
+            }
+        }
+    } catch (e) {
+        console.log("خطأ في تنبيه العيد");
+    }
+    return null;
+}
+
+// إعداد جميع التنبيهات
+function setupAllNotifications() {
+    clearAllTimers();
+    
+    if (Notification.permission !== "granted") return;
+    
+    const now = new Date();
+    
+    // التنبيهات الأساسية
+    if (notificationSettings.suhoor) {
+        const timer = scheduleNotification('fajr', '🌙 تنبيه السحور', 'حان وقت السحور - باقي ساعة على الإمساك', 60);
+        if (timer) notificationTimers.push(timer);
+    }
+    
+    if (notificationSettings.fajr) {
+        const timer = scheduleNotification('fajr', '🕌 تنبيه الفجر', 'حان وقت صلاة الفجر - قامت الصلاة', 0);
+        if (timer) notificationTimers.push(timer);
+    }
+    
+    if (notificationSettings.maghrib) {
+        const timer = scheduleNotification('maghrib', '🌅 تنبيه المغرب', 'حان وقت الإفطار - تقبل الله صيامكم', 0);
+        if (timer) notificationTimers.push(timer);
+    }
+    
+    // ✅ التنبيهات الذكية الجديدة
+    const ishaTimer = scheduleIshaNotification();
+    if (ishaTimer) notificationTimers.push(ishaTimer);
+    
+    const jummahTimer = scheduleJummahNotification();
+    if (jummahTimer) notificationTimers.push(jummahTimer);
+    
+    const lastTenTimer = scheduleLastTenNotification();
+    if (lastTenTimer) notificationTimers.push(lastTenTimer);
+    
+    const eidTimer = scheduleEidNotification();
+    if (eidTimer) notificationTimers.push(eidTimer);
+    
+    console.log(`✅ تم جدولة ${notificationTimers.length} تنبيه ذكي`);
+}
+
+// جدولة تنبيه أساسي
+function scheduleNotification(prayerName, title, body, minutesBefore = 0) {
+    const now = new Date();
+    const prayerTime = getPrayerTime(prayerName);
+    
+    if (!prayerTime) return null;
+    
+    try {
+        let [time, modifier] = prayerTime.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+        
+        if (modifier === 'م' && hours !== 12) hours += 12;
+        if (modifier === 'ص' && hours === 12) hours = 0;
+        
+        const prayerDate = new Date(now);
+        prayerDate.setHours(hours, minutes - minutesBefore, 0, 0);
+        
+        if (prayerDate < now) {
+            prayerDate.setDate(prayerDate.getDate() + 1);
+        }
+        
+        const timeUntil = prayerDate - now;
+        
+        if (timeUntil > 0 && timeUntil < 24 * 60 * 60 * 1000) {
+            return setTimeout(() => sendNotification(title, body), timeUntil);
+        }
+    } catch (e) {
+        console.log("خطأ في جدولة التنبيه:", e);
+    }
+    return null;
+}
+
+// تنظيف المؤقتات
+function clearAllTimers() {
+    notificationTimers.forEach(timer => clearTimeout(timer));
+    notificationTimers = [];
+}
+
+// تحديث يومي
+function scheduleDailyUpdate() {
+    const now = new Date();
+    const nextMidnight = new Date(now);
+    nextMidnight.setDate(nextMidnight.getDate() + 1);
+    nextMidnight.setHours(0, 0, 0, 0);
+    
+    setTimeout(() => {
+        clearAllTimers();
+        setupAllNotifications();
+        scheduleDailyUpdate();
+    }, nextMidnight - now);
+}
+
+// تشغيل النظام
+function initNotificationSystem() {
+    loadNotificationSettings();
+    
+    setTimeout(() => requestNotificationPermission(), 3000);
+    setTimeout(() => setupAllNotifications(), 4000);
+    
+    scheduleDailyUpdate();
+}
+
+// التشغيل عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initNotificationSystem, 3000);
+});
+
+
+
+
+
+
+
+
+/***********************
+ * 5️⃣ المصحف والتفسير
+ ***********************/
+window.changeFontSize = function(delta) {
     const quranText = document.querySelector('.quran-p-tag');
     if (!quranText) return;
 
     let currentSize = parseFloat(window.getComputedStyle(quranText).fontSize);
-
-    // تحديد حد أدنى وأقصى
     const minSize = 12;
     const maxSize = 36;
 
@@ -327,37 +1024,68 @@ window.resetSebha = function() {
     quranText.style.fontSize = newSize + "px";
 };
 
- 
- window.toggleDarkMode = function() {
-    const quranContainer = document.querySelector('.quran-text-final');
+
+/***********************
+ * الوضع الليلي للمصحف - النسخة النهائية
+ ***********************/
+window.toggleDarkMode = function() {
+    // هتشتغل على المصحف كله مش بس على quran-text-final
+    const quranPaper = document.querySelector('.quran-paper');
+    const quranText = document.querySelector('.quran-text-final');
     const btn = document.getElementById('night-mode-btn');
 
-    if (!quranContainer || !btn) return;
+    if (!quranPaper || !btn) return;
 
-    const isDark = quranContainer.classList.toggle('dark-mode');
+    // بدل ما نضيف كلاس على quran-text-final بس، نضيف على الحاوية الكبيرة
+    quranPaper.classList.toggle('dark-mode');
+    
+    // لو عايز نضيف على الاتنين
+    if (quranText) {
+        quranText.classList.toggle('dark-mode');
+    }
+
+    // تغيير شكل الزر
+    const isDark = quranPaper.classList.contains('dark-mode');
     btn.innerText = isDark ? "☀️" : "🌙";
+    
+    // حفظ التفضيل في localStorage
+    localStorage.setItem('quranDarkMode', isDark ? 'enabled' : 'disabled');
+    
+    // رسالة تأكيد (اختياري)
+    console.log('الوضع الليلي للمصحف:', isDark ? 'مفعل' : 'معطل');
 };
 
-/***********************
- * تعديل دالة تنسيق التاريخ ليكون الترتيب: اسم اليوم ثم اليوم ثم الشهر
- ***********************/
-function formatDateWithDay(dateStr) {
-    const days = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-    const monthsLookup = {"فبراير":2,"مارس":3};
-
-    const [dayNum, monthName] = dateStr.split(" ");
-    const monthNum = monthsLookup[monthName];
-    // إنشاء كائن تاريخ للتأكد من اليوم الصحيح في 2026
-    const date = new Date(2026, monthNum - 1, parseInt(dayNum, 10));
-    const dayName = days[date.getDay()];
-    
-    // الترتيب المطلوب: اسم اليوم + رقم اليوم + اسم الشهر
-    return `${dayName} ${dayNum} ${monthName}`;
+// استرجاع الوضع الليلي المحفوظ عند تحميل الصفحة
+function loadQuranDarkMode() {
+    const savedMode = localStorage.getItem('quranDarkMode');
+    if (savedMode === 'enabled') {
+        const quranPaper = document.querySelector('.quran-paper');
+        const quranText = document.querySelector('.quran-text-final');
+        const btn = document.getElementById('night-mode-btn');
+        
+        if (quranPaper) {
+            quranPaper.classList.add('dark-mode');
+        }
+        if (quranText) {
+            quranText.classList.add('dark-mode');
+        }
+        if (btn) {
+            btn.innerText = "☀️";
+        }
+    }
 }
 
-/***********************
- * تعديل جلب السورة (إصلاح البسملة)
- ***********************/
+window.onload = () => {
+    renderImsakeya();
+    showSection("imsakeya");
+    loadQuranDarkMode(); // استرجاع الوضع الليلي للمصحف
+    
+    // باقي الكود...
+};
+
+
+
+
 async function fetchSurah(id) {
     if (!id) return;
     const viewer = document.getElementById("quran-viewer");
@@ -388,21 +1116,10 @@ async function fetchSurah(id) {
         let allAyahs = "";
         quranData.ayahs.forEach((ayah, index) => {
             let text = ayah.text;
-
-            // تعديل Regex لمسح البسملة من أول آية بشكل أدق (ماعدا الفاتحة والتوبة)
-            if (index === 0 && id != 1 && id != 9) {
-                const basmalahPart = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
-                if (text.startsWith(basmalahPart)) {
-                    text = text.replace(basmalahPart, "").trim();
-                }
-            }
             
-            if (id == 1 && index === 0) return; // الفاتحة آيتها الأولى هي البسملة فعلاً
-
-            // تأمين نص التفسير من أي علامات قد تكسر الكود
-            const tafseerText = tafseerData.ayahs[index].text.replace(/`/g, "'").replace(/"/g, "'");
+            if (id == 1 && index === 0) return;
             
-            allAyahs += `<span class="ayah-content" onclick="openTafseer('${ayah.numberInSurah}', \`${tafseerText}\`)">${text}</span> 
+            allAyahs += `<span class="ayah-content" onclick="openTafseer('${ayah.numberInSurah}', '${tafseerData.ayahs[index].text.replace(/'/g, "\\'")}')">${text}</span> 
                          <span class="ayah-mark">﴿${ayah.numberInSurah}﴾</span> `;
         });
 
@@ -413,8 +1130,6 @@ async function fetchSurah(id) {
         viewer.innerHTML = controlsHtml + "<p style='text-align:center; color:red;'>تعذر تحميل السورة، تأكد من اتصالك بالإنترنت.</p>";
     }
 }
-
-
 
 window.openTafseer = function(num, text) {
     const title = document.getElementById("tafseer-title");
@@ -434,8 +1149,10 @@ window.closeTafseer = function() {
     sidebar.classList.remove("active");
 };
 
-    // قائمة السور
-    const names = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبيـاء","الحـج","المؤمنون","النـور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
+// تعبئة قائمة السور
+document.addEventListener('DOMContentLoaded', function() {
+    const names = ["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
+    
     const sel = document.getElementById("surah-select");
     if (sel) {
         names.forEach((n, i) => { 
@@ -445,9 +1162,13 @@ window.closeTafseer = function() {
             sel.appendChild(o); 
         });
     }
+});
+
+
+
 
 /***********************
- * 5️⃣ العداد التنازلي للصلوات (معدل بالتنبيهات + فجر الغد)
+ * 6️⃣ العداد التنازلي للصلوات
  ***********************/
 function updateCountdown() {
     const now = new Date();
@@ -461,7 +1182,7 @@ function updateCountdown() {
     if (!timerBox || !nameLabel || !countdownLabel) return;
 
     // قبل رمضان
-    const ramadanStart = new Date(2026, 1, 18); // فبراير = 1
+    const ramadanStart = new Date(2026, 1, 19); // فبراير = 1
     if (now < ramadanStart) {
         const diffTime = ramadanStart - now;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -480,160 +1201,75 @@ function updateCountdown() {
     });
 
     // بعد رمضان
-    const ramadanEnd = new Date(2026, 2, 19); // مارس = 2
+    const ramadanEnd = new Date(2026, 2, 20); // مارس = 2
     if (!todayData && now > ramadanEnd) {
-        nameLabel.innerText = "عيد مبارك.. تقبل الله منا ومنكم صالح الأعمال";
+        nameLabel.innerText = "عيد مبارك.. تقبل الله منا ومنكم";
         countdownLabel.innerText = "كل عام وأنتم بخير";
         timerBox.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)";
         return;
     }
 
-    // قائمة الصلوات
-    const prayers = todayData ? [
-        { name: "الفجر", time: todayData.f },
-        { name: "الظهر", time: todayData.zh },
-        { name: "العصر", time: todayData.a },
-        { name: "المغرب", time: todayData.m },
-        { name: "العشاء", time: todayData.i }
-    ] : [];
+    if (todayData) {
+        const prayers = [
+            { name: "الفجر", time: todayData.f },
+            { name: "الظهر", time: todayData.zh },
+            { name: "العصر", time: todayData.a },
+            { name: "المغرب", time: todayData.m },
+            { name: "العشاء", time: todayData.i }
+        ];
 
-    let next = null;
-    const currentSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        const currentSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        let next = null;
 
-    for (let p of prayers) {
-        let [t, mod] = p.time.split(' ');
-        let [h, m] = t.split(':').map(Number);
-        if (mod === 'م' && h !== 12) h += 12;
-        if (mod === 'ص' && h === 12) h = 0;
-        let pSec = h * 3600 + m * 60;
-        if (pSec > currentSec) { next = { name: p.name, sec: pSec }; break; }
-    }
-
-    if (next) {
-        let diffSec = next.sec - currentSec;
-        let hrs = Math.floor(diffSec / 3600);
-        let mins = Math.floor((diffSec % 3600) / 60);
-        let secs = diffSec % 60;
-
-        nameLabel.innerText = `المتبقي لصلاة ${next.name}`;
-        countdownLabel.innerText = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-
-        if (next.name === "الفجر" && diffSec <= 3600) {
-            timerBox.style.background = "linear-gradient(135deg, #4a0e0e, #8b0000)";
-            nameLabel.innerText = "⚡ حان وقت السحور.. باقي ساعة على الإمساك";
-        } else if (next.name === "المغرب" && diffSec === 0) {
-            timerBox.style.background = "linear-gradient(135deg, #1a9c3b, #27ae60)";
-            nameLabel.innerText = "🍱 تقبل الله صيامكم.. أفطاراً شهياً";
-            countdownLabel.innerText = "00:00:00";
-        } else if (next.name === "العشاء" && diffSec <= 900) {
-            timerBox.style.background = "linear-gradient(135deg, #2c3e50, #34495e)";
-            nameLabel.innerText = "🌙 لا تنس صلاة التراويح بعد العشاء";
-        } else {
-            timerBox.style.background = "var(--navy)";
-        }
-    } else {
-        // عرض عداد الفجر لليوم التالي
-        const tomorrow = new Date(now);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const tDay = tomorrow.getDate();
-        const tMonth = tomorrow.getMonth() + 1;
-
-        const tomorrowData = RAMADAN_30_DAYS.find(d => {
-            const dayNum = parseInt(d.date.split(" ")[0]);
-            return (d.date.includes("فبراير") && tMonth === 2 && dayNum === tDay) ||
-                   (d.date.includes("مارس") && tMonth === 3 && dayNum === tDay);
-        });
-
-        if (tomorrowData) {
-            let [t, mod] = tomorrowData.f.split(' ');
+        for (let p of prayers) {
+            let [t, mod] = p.time.split(' ');
             let [h, m] = t.split(':').map(Number);
             if (mod === 'م' && h !== 12) h += 12;
             if (mod === 'ص' && h === 12) h = 0;
-            let fajrSec = h * 3600 + m * 60;
-            let nowSec = currentSec;
-            let diffSec = (24 * 3600 - nowSec) + fajrSec;
+            let pSec = h * 3600 + m * 60;
+            if (pSec > currentSec) { 
+                next = { name: p.name, sec: pSec }; 
+                break; 
+            }
+        }
 
+        if (next) {
+            let diffSec = next.sec - currentSec;
             let hrs = Math.floor(diffSec / 3600);
             let mins = Math.floor((diffSec % 3600) / 60);
             let secs = diffSec % 60;
 
-            nameLabel.innerText = "المتبقي لصلاة الفجر غدًا";
+            nameLabel.innerText = `المتبقي لصلاة ${next.name}`;
             countdownLabel.innerText = `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
-            timerBox.style.background = "linear-gradient(135deg, #0f2027, #2c5364)";
-        } else {
-            nameLabel.innerText = "انتهت صلوات اليوم.. استعد لصلاة فجر الغد";
-            countdownLabel.innerText = "--:--:--";
             timerBox.style.background = "var(--navy)";
+        } else {
+            nameLabel.innerText = "انتهت صلوات اليوم";
+            countdownLabel.innerText = "--:--:--";
         }
     }
 }
 
-// تشغيل العداد كل ثانية
-setInterval(updateCountdown, 1000);
-
 /***********************
- * 6️⃣ التشغيل الأساسي والبيانات النهائية
+ * 7️⃣ التشغيل الأساسي
  ***********************/
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', function() {
     renderImsakeya();
     showSection("imsakeya");
+    resetSebha();
     
-// تسجيل الـ Service Worker لضمان عمل الموقع بدون إنترنت (PWA)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('تم تسجيل Service Worker بنجاح!', reg))
-            .catch(err => console.log('فشل تسجيل Service Worker:', err));
-    });
-}
     // تشغيل العداد كل ثانية
     setInterval(updateCountdown, 1000);
     
-    // رسالة ترحيبية في الكونسول للتأكيد
-    console.log("إهداء من الصعيدي للأدوات الصحية - بشتيل");
-};
-
-
-// 1. تعريف فروق التوقيت عن القاهرة (بالدقائق)
-const CITY_OFFSETS = {
-    cairo: 0, alex: 3, aswan: -5, ismailia: -4, tanta: 1, 
-    asyut: 0, sohag: -1, qena: -2, luxor: -3, hurghada: -8,
-    matrouh: 14, mansoura: 0, damietta: -1, port_said: -5,
-    suez: -4, minia: 1, feyyum: 1, zagazig: -1
-};
-
-let currentOffset = 0; // الفرق الحالي بالدقائق
-
-// 2. دالة تعديل الوقت بناءً على الفرق
-function adjustTime(timeStr, offsetMinutes) {
-    if (offsetMinutes === 0) return timeStr;
-    
-    let [time, period] = timeStr.split(' '); // "05:05", "ص"
-    let [hrs, mins] = time.split(':').map(Number);
-    
-    // تحويل الكل لدقائق
-    let totalMins = hrs * 60 + mins + offsetMinutes;
-    
-    // التعامل مع تجاوز الـ 60 دقيقة أو النقص عنها
-    let newHrs = Math.floor(totalMins / 60);
-    let newMins = totalMins % 60;
-    
-    if (newMins < 0) {
-        newMins += 60;
-        newHrs -= 1;
+    // تعطيل اختيار المدينة نهائياً
+    const citySelect = document.getElementById('city-select');
+    if (citySelect) {
+        citySelect.disabled = true;
+        citySelect.style.opacity = '0.5';
+        citySelect.title = 'تم تثبيت المواقيت لمدينة القاهرة';
     }
     
-    return `${String(newHrs).padStart(2, '0')}:${String(newMins).padStart(2, '0')} ${period}`;
-}
+    console.log("✅ إمساكية رمضان 2026 - القاهرة");
+});
 
-// 3. دالة تغيير المدينة
-window.changeCity = function(cityKey) {
-    currentOffset = CITY_OFFSETS[cityKey] || 0;
-    renderImsakeya(); // إعادة بناء الجدول بالمواقيت الجديدة
-    updateCountdown(); // تحديث العداد التنازلي فوراً
-    localStorage.setItem('userCity', cityKey); // حفظ اختيار المستخدم
-};
-
-// 4. تعديل بسيط في دالة renderImsakeya عشان تستخدم adjustTime
-// (في الجزء اللي بيعمل loop على RAMADAN_30_DAYS)
-// بدلاً من d.f اكتب adjustTime(d.f, currentOffset) وهكذا لباقي المواعيد
+// إلغاء أي دوال خاصة بتغيير المدينة
+window.changeCity = null;
