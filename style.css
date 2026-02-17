@@ -66,44 +66,89 @@ nav button {
  * تنسيق الإمساكية - ورقة قديمة فخمة
  ***********************/
 
+/* الحاوية الكبرى المسؤولة عن التوسيط */
 #imsakeya .table-container {
-    background-color: var(--old-paper) !important;
-    background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.05) 100%);
-    border: 3px double var(--brown);
-    border-radius: 15px;
+    margin: 20px auto !important;
+    max-width: 950px; /* عرض مناسب للكمبيوتر */
+    width: 95%;
+    background: var(--old-paper);
     padding: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow-x: auto; /* السماح بالتمرير داخل الحاوية فقط */
+    display: block; 
+}
+
+/* الجدول نفسه */
+.prayer-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    min-width: 600px; /* لضمان عدم تداخل النصوص في الشاشات المتوسطة */
+}
+
+/* تلوين الأعمدة الثابت (فجر ومغرب) */
+.fajr-col, .maghrib-col {
+    background-color: rgba(230, 126, 34, 0.05) !important;
+}
+
+/* التلوين البرتقالي القوي (النشط حالياً) */
+.highlight-now {
+    background-color: #e67e22 !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+/* ليلة القدر الصريحة */
+.laylat-al-qadr-row {
+    background-color: #fdf2e9 !important;
+}
+.qadr-label {
+    background: #8e44ad !important;
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+
+/* 1. تمييز اليوم الحالي (لون قوي عشان ميتنسيش) */
+.current-day-row {
+    background-color: #fff9c4 !important; /* أصفر فاتح خلفية الصف */
+    outline: 2px solid #e67e22 !important; /* برواز برتقالي حول الصف */
+    box-shadow: inset 0 0 10px rgba(230, 126, 34, 0.2);
+}
+
+/* 2. تمييز أيام الجمعة */
+.friday-row {
+    background-color: #e3f2fd !important; /* أزرق سماوي خفيف جداً */
+}
+.friday-text {
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+/* 3. ليلة القدر (بنفسجي ملكي) */
+.laylat-al-qadr-row {
+    border-right: 5px solid #8e44ad;
+}
+
+/* 4. التوسيط النهائي للجدول */
+#imsakeya .table-container {
+    display: flex;
+    justify-content: center; /* توسيط أفقي */
     margin: 20px auto;
-    max-width: 98%;
-    overflow-x: auto;
 }
 
 .prayer-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Amiri', serif;
-    min-width: 800px; /* لاستيعاب 8 أعمدة */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* هيدر الجدول - مذهب */
-.prayer-table th {
-    background: linear-gradient(135deg, var(--brown), #b99a6b) !important;
-    color: white !important;
-    padding: 12px 5px;
-    font-size: 1rem;
-    border: 1px solid #c5b38a;
-    text-align: center;
-    font-weight: bold;
-}
 
-/* خلايا الجدول */
-.prayer-table td {
-    padding: 12px 5px;
-    border-bottom: 1px solid #d4c19d;
-    color: var(--ink) !important;
-    font-weight: bold;
-    text-align: center;
-}
+
 
 /***********************
  * تنسيقات الأوقات المميزة
@@ -964,21 +1009,50 @@ body.dark-mode .notification-controls label {
 }
 
 /* تحسينات الموبايل */
+
 @media (max-width: 480px) {
-    .notification-controls {
-        width: 95%;
-        padding: 8px !important;
+    /* تصغير حاوية الجدول وتقليل الحشوات */
+    #imsakeya .table-container {
+        padding: 5px;
+        max-width: 100%;
+        margin: 10px 0;
+        border-radius: 5px;
+        overflow-x: hidden; /* منع التمرير الجانبي */
     }
-    
-    .notification-controls label {
-        font-size: 0.8rem;
+
+
+.prayer-table {
+        min-width: 100% !important; 
+        table-layout: fixed; /* أضف هذا السطر هنا */
+        width: 100%;
     }
-    
-    .notification-controls button {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+
+    .prayer-table th, 
+    .prayer-table td {
+        font-size: 10px !important; 
+        padding: 8px 1px !important;
+        letter-spacing: -0.5px; 
+        word-wrap: break-word; /* لضمان عدم خروج النص عن المربع */
+    }
+
+
+
+    /* إخفاء كلمة "رمضان" والاكتفاء بالرقم لتوفير مساحة */
+    .ramadan-day-badge {
+        padding: 2px 5px;
+        font-size: 9px;
+    }
+
+    /* تقليص حجم أيقونات (☀️ 🌙 🍽️) أو إخفائها في الموبايل */
+    .shorooq-highlight::before,
+    .fajr-highlight::before,
+    .maghrib-highlight::before {
+        display: none !important;
     }
 }
+
+
+
 
 /* تنسيق شريط التنبيهات */
 .notification-bar {
