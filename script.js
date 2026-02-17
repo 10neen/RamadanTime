@@ -81,115 +81,81 @@ function formatDateWithDay(dateStr) {
 // دالة عرض الإمساكية
 
 
+
+/***********************
+ * 3️⃣ دالة عرض الإمساكية الاحترافية
+ * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
+ ***********************/
+
+
+
 function renderImsakeya() {
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.getMonth() + 1;
-    const currentDayOfWeek = today.getDay(); // 0 = الأحد, 1 = الاثنين, ..., 5 = الجمعة
+    const now = new Date();
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const currentTime = now.getHours() * 60 + now.getMinutes();
 
     let html = `
         <thead>
             <tr>
-                <th>رمضان</th>
-                <th>اليوم والتاريخ</th>
-                <th>الفجر</th>
-                <th>الشروق</th>
-                <th>الظهر</th>
-                <th>العصر</th>
-                <th>المغرب</th>
-                <th>العشاء</th>
+                <th style="width: 8%">ر</th>
+                <th style="width: 26%">اليوم والتاريخ</th>
+                <th>فجر</th>
+                <th>شروق</th>
+                <th>ظهر</th>
+                <th>عصر</th>
+                <th>مغرب</th>
+                <th>عشاء</th>
             </tr>
         </thead>
         <tbody>`;
 
     RAMADAN_30_DAYS.forEach(d => {
         const dayNumInMonth = parseInt(d.date.split(" ")[0]);
-        let isToday = false;
-        let isFriday = false;
+        const ramadanDay = parseInt(d.d);
         
-        // تحديد اليوم الحالي
-        if (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) isToday = true;
-        if (d.date.includes("مارس") && month === 3 && dayNumInMonth === day) isToday = true;
+        // فحص اليوم الحالي (فبراير أو مارس 2026)
+        let isToday = (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) || 
+                      (d.date.includes("مارس") && month === 3 && dayNumInMonth === day);
         
-        // تحديد يوم الجمعة
         const formattedDate = formatDateWithDay(d.date);
-        if (formattedDate.includes("الجمعة")) isFriday = true;
+        const isFriday = formattedDate.includes("الجمعة");
+        const isLaylatAlQadr = [21, 23, 25, 27, 29].includes(ramadanDay);
 
-        // تحديد وقت الصلاة الحالي
-        const now = new Date();
-        const currentTime = now.getHours() * 60 + now.getMinutes();
-        
-        // تحويل أوقات الصلاة إلى دقائق للمقارنة
-        const fajrMinutes = convertTimeToMinutes(d.f);
-        const shorooqMinutes = convertTimeToMinutes(d.sh);
-        const zuhrMinutes = convertTimeToMinutes(d.zh);
-const asrMinutes = convertTimeToMinutes(d.a);
+        // تحديد وقت الصلاة "الآن"
+        let activePrayer = ""; 
+        if (isToday) {
+            const fMin = convertTimeToMinutes(d.f);
+            const mMin = convertTimeToMinutes(d.m);
+            if (currentTime >= fMin - 5 && currentTime < fMin + 45) activePrayer = "fajr";
+            if (currentTime >= mMin - 5 && currentTime < mMin + 45) activePrayer = "maghrib";
+        }
 
-        const maghribMinutes = convertTimeToMinutes(d.m);
-        const ishaMinutes = convertTimeToMinutes(d.i);
-        
-        // تحديد الصلاة الحالية
-        let currentPrayer = '';
-        if (currentTime < fajrMinutes) currentPrayer = 'before-fajr';
-        else if (currentTime < shorooqMinutes) currentPrayer = 'fajr';
-        else if (currentTime < zuhrMinutes) currentPrayer = 'shorooq';
-        else if (currentTime < asrMinutes) currentPrayer = 'zuhr';
-        else if (currentTime < maghribMinutes) currentPrayer = 'asr';
-        else if (currentTime < ishaMinutes) currentPrayer = 'maghrib';
-        else currentPrayer = 'isha';
+        // بناء كلاسات الصف (هنا السر في التلوين)
+        let rowClasses = [];
+        if (isToday) rowClasses.push('current-day-row'); 
+        if (isFriday) rowClasses.push('friday-row');
+        if (isLaylatAlQadr) rowClasses.push('laylat-al-qadr-row');
 
-// بدل ما نستخدم class واحد، نستخدم class خاص بكل صلاة
-html += `
-<tr class="${isToday ? 'current-day-row' : ''} ${isFriday ? 'friday-row' : ''}">
-    <td><span class="ramadan-day-badge">${d.d}</span></td>
-    <td class="${isFriday ? 'friday-text' : ''}">${formattedDate}</td>
-    <td class="fajr-highlight ${currentPrayer === 'fajr' ? 'prayer-now' : ''}">${d.f}</td>
-    <td class="shorooq-highlight ${currentPrayer === 'shorooq' ? 'prayer-now' : ''}">${d.sh}</td>
-    <td class="${currentPrayer === 'zuhr' ? 'prayer-now zuhr-time' : ''}">${d.zh}</td>
-    <td class="${currentPrayer === 'asr' ? 'prayer-now asr-time' : ''}">${d.a}</td>
-    <td class="maghrib-highlight ${currentPrayer === 'maghrib' ? 'prayer-now' : ''}">${d.m}</td>
-    <td class="${currentPrayer === 'isha' ? 'prayer-now isha-time' : ''}">${d.i}</td>
-</tr>`;
-
-
+        html += `
+        <tr class="${rowClasses.join(' ')}">
+            <td class="ramadan-num"><span class="ramadan-day-badge">${d.d}</span></td>
+            <td class="date-cell">
+                <span class="${isFriday ? 'friday-text' : ''}">${formattedDate}</span>
+                ${isLaylatAlQadr ? '<div class="qadr-label">ليلة القدر ✨</div>' : ''}
+            </td>
+            <td class="fajr-col ${activePrayer === 'fajr' ? 'highlight-now' : ''}">${d.f.replace(' ص','')}</td>
+            <td>${d.sh.replace(' ص','')}</td>
+            <td>${d.zh.replace(' م','')}</td>
+            <td>${d.a.replace(' م','')}</td>
+            <td class="maghrib-col ${activePrayer === 'maghrib' ? 'highlight-now' : ''}">${d.m.replace(' م','')}</td>
+            <td>${d.i.replace(' م','')}</td>
+        </tr>`;
     });
 
-    html += "</tbody>";
-    
     const tableElement = document.getElementById("imsakia-table");
-    if (tableElement) {
-        tableElement.innerHTML = html;
-    }
+    if (tableElement) tableElement.innerHTML = html + "</tbody>";
 }
-
-// دالة مساعدة لتحويل الوقت إلى دقائق
-function convertTimeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    let [time, modifier] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-    
-    if (modifier === 'م' && hours !== 12) hours += 12;
-    if (modifier === 'ص' && hours === 12) hours = 0;
-    
-    return hours * 60 + minutes;
-}
-
-
-// تحديث التمييز كل دقيقة
-function updatePrayerHighlight() {
-    renderImsakeya();
-}
-
-// تشغيل التحديث كل دقيقة
-setInterval(updatePrayerHighlight, 60000);
-
-
-
-
-
-
-
-
 
 
 
@@ -450,13 +416,16 @@ const AZKAR_MODES = {
 };
 
 
+
 /***********************
  * السبحة الإلكترونية والأذكار - النسخة المطورة
- * متوافقة مع AZKAR_MODES الجديد
+ * مع حماية ضد الضغط السريع
  ***********************/
 
 let currentMode = "sunna";
 let c = 0, phase = 0;
+let isProcessing = false; // متغير لمنع التكرار
+let lastClickTime = 0;    // تتبع آخر ضغطة
 
 window.setAzkar = function(mode, btn) {
     currentMode = mode;
@@ -478,11 +447,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const sebhaBtn = document.getElementById("sebha-btn");
     if (sebhaBtn) {
         sebhaBtn.onclick = () => {
+            // حماية ضد الضغط السريع - منع التكرار خلال 300ms
+            const now = Date.now();
+            if (now - lastClickTime < 300) {
+                console.log("الضغط سريع جداً - تم التجاهل");
+                return;
+            }
+            lastClickTime = now;
+            
+            // منع المعالجة المتزامنة
+            if (isProcessing) return;
+            isProcessing = true;
+            
             const data = AZKAR_MODES[currentMode];
             
             // التأكد من وجود البيانات
             if (!data || !data[phase]) {
                 resetSebha();
+                isProcessing = false;
                 return;
             }
             
@@ -504,6 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     resetSebha();
+                    isProcessing = false;
                     return;
                 }
             }
@@ -523,6 +506,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // اهتزاز خفيف مع كل تسبيحة
             if ("vibrate" in navigator) navigator.vibrate(30);
+            
+            // فك الحماية بعد 200ms
+            setTimeout(() => {
+                isProcessing = false;
+            }, 200);
         };
     }
     
@@ -571,6 +559,7 @@ window.nextAzkar = function() {
     if (countEl) countEl.innerText = c;
     if (typeEl && data[phase].type) typeEl.innerText = data[phase].type;
 };
+
 
 
 
@@ -737,6 +726,10 @@ function getPrayerTime(prayerName) {
         default: return null;
     }
 }
+
+
+
+
 
 // ========== التنبيهات الذكية الجديدة ==========
 
@@ -1273,3 +1266,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // إلغاء أي دوال خاصة بتغيير المدينة
 window.changeCity = null;
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js') // تأكد أن اسم الملف sw.js
+      .then(reg => console.log('✅ PWA: جاهز للعمل بدون إنترنت'))
+      .catch(err => console.log('❌ PWA: فشل التسجيل', err));
+  });
+}
