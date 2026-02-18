@@ -110,28 +110,37 @@ function renderImsakeya() {
         </thead>
         <tbody>`;
 
+    // صمام أمان: التأكد من وجود البيانات
+    if (typeof RAMADAN_30_DAYS === 'undefined' || RAMADAN_30_DAYS.length === 0) {
+        console.error("بيانات الإمساكية غير موجودة!");
+        return;
+    }
+
     RAMADAN_30_DAYS.forEach(d => {
-        const dayNumInMonth = parseInt(d.date.split(" ")[0]);
+        // تحويل النص لرقم لضمان الدقة (ياخد أول أرقام تقابله في "19 فبراير")
+        const dayNumInMonth = parseInt(d.date.match(/\d+/)[0]);
         const ramadanDay = parseInt(d.d);
         
-        // فحص اليوم الحالي (فبراير أو مارس 2026)
-        let isToday = (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) || 
-                      (d.date.includes("مارس") && month === 3 && dayNumInMonth === day);
+        // فحص اليوم الحالي بأكثر من طريقة لضمان الظهور
+        let isToday = false;
+        if (month === 2 && d.date.includes("فبراير") && dayNumInMonth === day) isToday = true;
+        if (month === 3 && d.date.includes("مارس") && dayNumInMonth === day) isToday = true;
         
         const formattedDate = formatDateWithDay(d.date);
         const isFriday = formattedDate.includes("الجمعة");
         const isLaylatAlQadr = [21, 23, 25, 27, 29].includes(ramadanDay);
 
-        // تحديد وقت الصلاة "الآن"
         let activePrayer = ""; 
         if (isToday) {
-            const fMin = convertTimeToMinutes(d.f);
-            const mMin = convertTimeToMinutes(d.m);
-            if (currentTime >= fMin - 5 && currentTime < fMin + 45) activePrayer = "fajr";
-            if (currentTime >= mMin - 5 && currentTime < mMin + 45) activePrayer = "maghrib";
+            // صمام أمان لوظيفة تحويل الوقت
+            try {
+                const fMin = convertTimeToMinutes(d.f);
+                const mMin = convertTimeToMinutes(d.m);
+                if (currentTime >= fMin - 5 && currentTime < fMin + 45) activePrayer = "fajr";
+                if (currentTime >= mMin - 5 && currentTime < mMin + 45) activePrayer = "maghrib";
+            } catch(e) { console.log("خطأ في حساب وقت الصلاة الحالية"); }
         }
 
-        // بناء كلاسات الصف (هنا السر في التلوين)
         let rowClasses = [];
         if (isToday) rowClasses.push('current-day-row'); 
         if (isFriday) rowClasses.push('friday-row');
@@ -154,8 +163,22 @@ function renderImsakeya() {
     });
 
     const tableElement = document.getElementById("imsakia-table");
-    if (tableElement) tableElement.innerHTML = html + "</tbody>";
+    if (tableElement) {
+        tableElement.innerHTML = html + "</tbody>";
+    }
 }
+
+
+const tableElement = document.getElementById("imsakia-table");
+if (tableElement) {
+    if (html.includes("<tr>")) { // لو فيه بيانات فعلاً
+        tableElement.innerHTML = html + "</tbody>";
+    } else {
+        console.error("الجدول لم يتم إنشاؤه، تأكد من مصفوفة RAMADAN_30_DAYS");
+    }
+}
+
+
 
 
 
@@ -1275,3 +1298,4 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('❌ PWA: فشل التسجيل', err));
   });
 }
+
