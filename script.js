@@ -1299,3 +1299,39 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+
+
+/***********************
+ * 🛠️ الجزء المفقود لربط العداد والجدول
+ ***********************/
+
+// 1. دالة تحويل الوقت (دي المحرك اللي مشغل العداد عندك)
+function convertTimeToMinutes(timeStr) {
+    if (!timeStr) return 0;
+    try {
+        const [time, modifier] = timeStr.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+        if (modifier === 'م' && hours !== 12) hours += 12;
+        if (modifier === 'ص' && hours === 12) hours = 0;
+        return hours * 60 + minutes;
+    } catch (e) {
+        return 0;
+    }
+}
+
+// 2. تشغيل كل حاجة فور تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("🚀 النظام يعمل الآن...");
+    
+    // تشغيل الجدول
+    if (typeof renderImsakeya === 'function') {
+        renderImsakeya();
+    }
+
+    // تشغيل العداد وتحديثه كل ثانية
+    if (typeof updateCountdown === 'function') {
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    }
+});
+
