@@ -87,96 +87,43 @@ function formatDateWithDay(dateStr) {
  * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
  ***********************/
 
-
-
 function renderImsakeya() {
-    const now = new Date();
-    const day = now.getDate();
-    const month = now.getMonth() + 1;
-    const currentTime = now.getHours() * 60 + now.getMinutes();
+    const tableBody = document.querySelector("#imsakia-table tbody");
+    if (!tableBody) return;
 
-    let html = `
-        <thead>
-            <tr>
-                <th style="width: 8%">ر</th>
-                <th style="width: 26%">اليوم والتاريخ</th>
-                <th>فجر</th>
-                <th>شروق</th>
-                <th>ظهر</th>
-                <th>عصر</th>
-                <th>مغرب</th>
-                <th>عشاء</th>
-            </tr>
-        </thead>
-        <tbody>`;
-
-    // صمام أمان: التأكد من وجود البيانات
-    if (typeof RAMADAN_30_DAYS === 'undefined' || RAMADAN_30_DAYS.length === 0) {
-        console.error("بيانات الإمساكية غير موجودة!");
-        return;
-    }
-
-    RAMADAN_30_DAYS.forEach(d => {
-        // تحويل النص لرقم لضمان الدقة (ياخد أول أرقام تقابله في "19 فبراير")
-        const dayNumInMonth = parseInt(d.date.match(/\d+/)[0]);
-        const ramadanDay = parseInt(d.d);
+    let html = "";
+    RAMADAN_30_DAYS.forEach(day => {
+        // تحديد اليوم الحالي لتمييزه باللون الأصفر
+        const now = new Date();
+        const isToday = (day.r === 1 && now.getDate() === 19 && now.getMonth() === 1); // 1 = فبراير
         
-        // فحص اليوم الحالي بأكثر من طريقة لضمان الظهور
-        let isToday = false;
-        if (month === 2 && d.date.includes("فبراير") && dayNumInMonth === day) isToday = true;
-        if (month === 3 && d.date.includes("مارس") && dayNumInMonth === day) isToday = true;
-        
-        const formattedDate = formatDateWithDay(d.date);
-        const isFriday = formattedDate.includes("الجمعة");
-        const isLaylatAlQadr = [21, 23, 25, 27, 29].includes(ramadanDay);
-
-        let activePrayer = ""; 
-        if (isToday) {
-            // صمام أمان لوظيفة تحويل الوقت
-            try {
-                const fMin = convertTimeToMinutes(d.f);
-                const mMin = convertTimeToMinutes(d.m);
-                if (currentTime >= fMin - 5 && currentTime < fMin + 45) activePrayer = "fajr";
-                if (currentTime >= mMin - 5 && currentTime < mMin + 45) activePrayer = "maghrib";
-            } catch(e) { console.log("خطأ في حساب وقت الصلاة الحالية"); }
-        }
-
-        let rowClasses = [];
-        if (isToday) rowClasses.push('current-day-row'); 
-        if (isFriday) rowClasses.push('friday-row');
-        if (isLaylatAlQadr) rowClasses.push('laylat-al-qadr-row');
-
-        html += `
-        <tr class="${rowClasses.join(' ')}">
-            <td class="ramadan-num"><span class="ramadan-day-badge">${d.d}</span></td>
-            <td class="date-cell">
-                <span class="${isFriday ? 'friday-text' : ''}">${formattedDate}</span>
-                ${isLaylatAlQadr ? '<div class="qadr-label">ليلة القدر ✨</div>' : ''}
-            </td>
-            <td class="fajr-col ${activePrayer === 'fajr' ? 'highlight-now' : ''}">${d.f.replace(' ص','')}</td>
-            <td>${d.sh.replace(' ص','')}</td>
-            <td>${d.zh.replace(' م','')}</td>
-            <td>${d.a.replace(' م','')}</td>
-            <td class="maghrib-col ${activePrayer === 'maghrib' ? 'highlight-now' : ''}">${d.m.replace(' م','')}</td>
-            <td>${d.i.replace(' م','')}</td>
+        html += `<tr class="${isToday ? 'today-highlight' : ''}">
+            <td><span class="ramadan-day-badge">${day.r}</span></td>
+            <td>${day.date}</td>
+            <td style="font-weight:bold; color:#1a2a6c;">${day.f}</td>
+            <td class="shorooq-highlight">${day.s}</td>
+            <td>${day.zh}</td>
+            <td>${day.a}</td>
+            <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
+            <td>${day.i}</td>
         </tr>`;
     });
-
-    const tableElement = document.getElementById("imsakia-table");
-    if (tableElement) {
-        tableElement.innerHTML = html + "</tbody>";
-    }
+    tableBody.innerHTML = html;
 }
 
 
-const tableElement = document.getElementById("imsakia-table");
-if (tableElement) {
-    if (html.includes("<tr>")) { // لو فيه بيانات فعلاً
-        tableElement.innerHTML = html + "</tbody>";
-    } else {
-        console.error("الجدول لم يتم إنشاؤه، تأكد من مصفوفة RAMADAN_30_DAYS");
-    }
+
+function convertTimeToMinutes(timeStr) {
+    if (!timeStr) return 0;
+    const [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (modifier === 'م' && hours !== 12) hours += 12;
+    if (modifier === 'ص' && hours === 12) hours = 0;
+    return hours * 60 + minutes;
 }
+
+
+
 
 
 
@@ -1334,4 +1281,5 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateCountdown, 1000);
     }
 });
+
 
