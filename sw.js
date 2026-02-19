@@ -1,4 +1,4 @@
-const CACHE_NAME = "ramadan-cache-v18"; // تحديث الإصدار لضمان تنشيط التعديلات الجديدة
+const CACHE_NAME = "ramadan-cache-v19"; // تحديث الإصدار لضمان تنشيط التعديلات الجديدة
 
 // قائمة الملفات الأساسية - تأكد أن الأسماء مطابقة تماماً للموجود في المجلد
 const urlsToCache = [
@@ -124,5 +124,6 @@ self.addEventListener('message', event => {
     });
   }
 });
+
 
 
