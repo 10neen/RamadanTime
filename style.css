@@ -1199,3 +1199,14 @@ body.dark-mode .notification-controls label {
         right: -5px;
     }
 }
+
+.today-highlight {
+    background-color: #fff9c4 !important; /* لون أصفر خفيف */
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.5);
+    transform: scale(1.01);
+}
+.friday-row {
+    border-right: 4px solid #27ae60;
+}
+
+
