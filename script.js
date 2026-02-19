@@ -87,100 +87,93 @@ function formatDateWithDay(dateStr) {
  * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
  ***********************/
 
+/***********************
+ * 3️⃣ دالة عرض الإمساكية الاحترافية
+ * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
+ ***********************/
 
-
-// 1. الدالة اللي بتفهم الوقت عشان العداد يشتغل
-function convertTimeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    const [time, modifier] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-    if (modifier === 'م' && hours !== 12) hours += 12;
-    if (modifier === 'ص' && hours === 12) hours = 0;
-    return hours * 60 + minutes;
-}
-
-// 2. دالة رسم الجدول (بترجعلك الجمعة وليلة القدر واليوم الحالي)
 function renderImsakeya() {
-    const tableBody = document.querySelector("#imsakia-table tbody");
-    if (!tableBody) return;
-
     const now = new Date();
-    const currentDay = now.getDate();
-    const currentMonth = now.getMonth() + 1; // فبراير = 2، مارس = 3
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const currentTime = now.getHours() * 60 + now.getMinutes();
 
-    let html = "";
-    RAMADAN_30_DAYS.forEach(day => {
-        // تحديد هل اليوم هو "النهاردة"؟ (19 فبراير هو 1 رمضان)
-        const isToday = (currentMonth === 2 && currentDay === (18 + day.r)) || (currentMonth === 3 && (day.r - 10) === currentDay); 
+    let html = `
+        <thead>
+            <tr>
+                <th style="width: 8%">ر</th>
+                <th style="width: 26%">اليوم والتاريخ</th>
+                <th>فجر</th>
+                <th>شروق</th>
+                <th>ظهر</th>
+                <th>عصر</th>
+                <th>مغرب</th>
+                <th>عشاء</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    RAMADAN_30_DAYS.forEach(d => {
+        const dayNumInMonth = parseInt(d.date.split(" ")[0]);
+        const ramadanDay = parseInt(d.d);
         
-        const isFriday = day.date.includes("الجمعة");
-        const isLastTen = day.r >= 21;
+        // فحص اليوم الحالي (فبراير أو مارس 2026)
+        let isToday = (d.date.includes("فبراير") && month === 2 && dayNumInMonth === day) || 
+                      (d.date.includes("مارس") && month === 3 && dayNumInMonth === day);
+        
+        const formattedDate = formatDateWithDay(d.date);
+        const isFriday = formattedDate.includes("الجمعة");
+        const isLaylatAlQadr = [21, 23, 25, 27, 29].includes(ramadanDay);
+
+        // تحديد وقت الصلاة "الآن"
+        let activePrayer = ""; 
+        if (isToday) {
+            const fMin = convertTimeToMinutes(d.f);
+            const mMin = convertTimeToMinutes(d.m);
+            if (currentTime >= fMin - 5 && currentTime < fMin + 45) activePrayer = "fajr";
+            if (currentTime >= mMin - 5 && currentTime < mMin + 45) activePrayer = "maghrib";
+        }
+
+        // بناء كلاسات الصف (هنا السر في التلوين)
+        let rowClasses = [];
+        if (isToday) rowClasses.push('current-day-row'); 
+        if (isFriday) rowClasses.push('friday-row');
+        if (isLaylatAlQadr) rowClasses.push('laylat-al-qadr-row');
 
         html += `
-            <tr style="${isToday ? 'background: #fff9c4; border: 2px solid #d4af37;' : ''}">
-                <td>
-                    <span class="ramadan-day-badge" style="${isLastTen ? 'background:#b21f1f; color:white;' : ''}">
-                        ${day.r}
-                    </span>
-                </td>
-                <td style="${isFriday ? 'color:#b21f1f; font-weight:bold;' : ''}">${day.date}</td>
-                <td style="font-weight:bold;">${day.f}</td>
-                <td class="shorooq-highlight">${day.s}</td> 
-                <td>${day.zh}</td>
-                <td>${day.a}</td>
-                <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
-                <td>${day.i}</td>
-            </tr>`;
+        <tr class="${rowClasses.join(' ')}">
+            <td class="ramadan-num"><span class="ramadan-day-badge">${d.d}</span></td>
+            <td class="date-cell">
+                <span class="${isFriday ? 'friday-text' : ''}">${formattedDate}</span>
+                ${isLaylatAlQadr ? '<div class="qadr-label">ليلة القدر ✨</div>' : ''}
+            </td>
+            <td class="fajr-col ${activePrayer === 'fajr' ? 'highlight-now' : ''}">${d.f.replace(' ص','')}</td>
+            <td>${d.sh.replace(' ص','')}</td>
+            <td>${d.zh.replace(' م','')}</td>
+            <td>${d.a.replace(' م','')}</td>
+            <td class="maghrib-col ${activePrayer === 'maghrib' ? 'highlight-now' : ''}">${d.m.replace(' م','')}</td>
+            <td>${d.i.replace(' م','')}</td>
+        </tr>`;
     });
-    tableBody.innerHTML = html;
-}
 
-// 3. تحديث العداد التنازلي (عشان ميبقاش أصفار)
-function updateCountdown() {
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    html += "</tbody>";
     
-    // جلب بيانات أول يوم (أو عدلها لتجلب اليوم الحالي)
-    const todayData = RAMADAN_30_DAYS[0]; 
-    const prayers = [
-        { name: "الفجر", time: todayData.f },
-        { name: "المغرب", time: todayData.m }
-    ];
-
-    let next = null;
-    for (let p of prayers) {
-        let pMin = convertTimeToMinutes(p.time);
-        if (pMin > currentMinutes) {
-            next = { name: p.name, min: pMin };
-            break;
-        }
-    }
-
-    if (next) {
-        let diff = next.min - currentMinutes;
-        let h = Math.floor(diff / 60);
-        let m = diff % 60;
-        document.getElementById("next-prayer-name").innerText = `المتبقي لـ ${next.name}`;
-        document.getElementById("countdown-timer").innerText = `${h}:${m.toString().padStart(2,'0')}:00`;
-    }
+    const tableElement = document.getElementById("imsakia-table");
+    if (tableElement) tableElement.innerHTML = html;
 }
 
-// 4. تشغيل الكل عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    renderImsakeya();
-    updateCountdown();
-    setInterval(updateCountdown, 60000); // تحديث كل دقيقة
-});
 
-
-
-
-
-
-
-
-
-
+// دالة مساعدة لتحويل الوقت إلى دقائق
+function convertTimeToMinutes(timeStr) {
+    if (!timeStr) return 0;
+    let [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    
+    if (modifier === 'م' && hours !== 12) hours += 12;
+    if (modifier === 'ص' && hours === 12) hours = 0;
+    
+    return hours * 60 + minutes;
+}
 
 
 
@@ -1298,43 +1291,3 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('❌ PWA: فشل التسجيل', err));
   });
 }
-
-
-
-/***********************
- * 🛠️ الجزء المفقود لربط العداد والجدول
- ***********************/
-
-// 1. دالة تحويل الوقت (دي المحرك اللي مشغل العداد عندك)
-function convertTimeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    try {
-        const [time, modifier] = timeStr.split(' ');
-        let [hours, minutes] = time.split(':').map(Number);
-        if (modifier === 'م' && hours !== 12) hours += 12;
-        if (modifier === 'ص' && hours === 12) hours = 0;
-        return hours * 60 + minutes;
-    } catch (e) {
-        return 0;
-    }
-}
-
-// 2. تشغيل كل حاجة فور تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("🚀 النظام يعمل الآن...");
-    
-    // تشغيل الجدول
-    if (typeof renderImsakeya === 'function') {
-        renderImsakeya();
-    }
-
-    // تشغيل العداد وتحديثه كل ثانية
-    if (typeof updateCountdown === 'function') {
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    }
-});
-
-
-
-
