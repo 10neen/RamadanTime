@@ -86,31 +86,43 @@ function formatDateWithDay(dateStr) {
  * 3️⃣ دالة عرض الإمساكية الاحترافية
  * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
  ***********************/
-
 function renderImsakeya() {
     const tableBody = document.querySelector("#imsakia-table tbody");
     if (!tableBody) return;
 
+    const now = new Date();
+    const currentDay = now.getDate();
+    const currentMonth = now.getMonth() + 1; // فبراير = 2
+
     let html = "";
     RAMADAN_30_DAYS.forEach(day => {
-        // تحديد اليوم الحالي لتمييزه باللون الأصفر
-        const now = new Date();
-        const isToday = (day.r === 1 && now.getDate() === 19 && now.getMonth() === 1); // 1 = فبراير
+        // 1. تحديد هل اليوم هو "النهاردة"؟
+        const isToday = (currentMonth === 2 && currentDay === (18 + day.r)) || (currentMonth === 3 && day.r > 10); 
         
-        html += `<tr class="${isToday ? 'today-highlight' : ''}">
-            <td><span class="ramadan-day-badge">${day.r}</span></td>
-            <td>${day.date}</td>
-            <td style="font-weight:bold; color:#1a2a6c;">${day.f}</td>
-            <td class="shorooq-highlight">${day.s}</td>
-            <td>${day.zh}</td>
-            <td>${day.a}</td>
-            <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
-            <td>${day.i}</td>
-        </tr>`;
+        // 2. تمييز أيام الجمعة (للتنبيهات)
+        const isFriday = day.date.includes("الجمعة");
+        
+        // 3. تمييز العشر الأواخر (ليالي القدر)
+        const isLastTen = day.r >= 21;
+
+        // بناء الصف مع الكلاسات المناسبة
+        let rowClass = "";
+        if (isToday) rowClass = "today-highlight"; // لازم تضيف تنسيق الـ CSS ده
+        if (isFriday) rowClass += " friday-row";
+
+        html += `
+            <tr class="${rowClass}" style="${isToday ? 'background: #fff9c4; border: 2px solid #d4af37;' : ''}">
+                <td><span class="ramadan-day-badge" style="${isLastTen ? 'background:#b21f1f;' : ''}">${day.r}</span></td>
+                <td style="${isFriday ? 'color:#27ae60; font-weight:bold;' : ''}">${day.date}</td>
+                <td style="font-weight:bold;">${day.f}</td>
+                <td class="shorooq-highlight">${day.s}</td> <td>${day.zh}</td>
+                <td>${day.a}</td>
+                <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
+                <td>${day.i}</td>
+            </tr>`;
     });
     tableBody.innerHTML = html;
 }
-
 
 
 function convertTimeToMinutes(timeStr) {
@@ -1281,5 +1293,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateCountdown, 1000);
     }
 });
+
 
 
