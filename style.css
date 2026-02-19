@@ -1200,13 +1200,333 @@ body.dark-mode .notification-controls label {
     }
 }
 
-.today-highlight {
-    background-color: #fff9c4 !important; /* لون أصفر خفيف */
-    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.5);
+/***********************
+ * تحسينات إضافية للإمساكية - لمساتك الخاصة
+ ***********************/
+
+/* تحسين حاوية الإمساكية */
+#imsakeya .table-container {
+    position: relative;
+    background: linear-gradient(145deg, #faf3e0, #e8d6b5) !important;
+    border: 6px double #b68b5c;
+    border-radius: 25px;
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.2),
+        inset 0 0 30px rgba(255,215,0,0.2),
+        0 0 0 2px #d4af37 inset;
+    padding: 20px;
+}
+
+/* إضافة زخارف جانبية */
+#imsakeya .table-container::before {
+    content: "🌙";
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    font-size: 3rem;
+    opacity: 0.2;
+    transform: rotate(15deg);
+    z-index: 0;
+}
+
+#imsakeya .table-container::after {
+    content: "✨";
+    position: absolute;
+    bottom: -15px;
+    left: -10px;
+    font-size: 3rem;
+    opacity: 0.2;
+    transform: rotate(-15deg);
+    z-index: 0;
+}
+
+/* تزيين رأس الجدول */
+.prayer-table th {
+    background: linear-gradient(45deg, #b68b5c, #d4af37, #b68b5c) !important;
+    background-size: 200% 200% !important;
+    animation: gold-shimmer 3s ease infinite;
+    color: white !important;
+    font-size: 1.1rem;
+    padding: 15px 5px !important;
+    border: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gold-shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* إضافة تأثير بريق على رأس الجدول */
+.prayer-table th::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.2);
+    transform: rotate(30deg);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+    0% { left: -60%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* تنسيق خلايا الجدول */
+.prayer-table td {
+    padding: 15px 5px !important;
+    font-size: 1rem;
+    border-bottom: 1px dashed #c4a77d;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* تأثير hover على الصفوف */
+.prayer-table tr {
+    transition: all 0.3s ease;
+}
+
+.prayer-table tr:hover {
+    background: rgba(212, 175, 55, 0.15) !important;
     transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+/* تنسيق شارة اليوم */
+.ramadan-day-badge {
+    background: linear-gradient(135deg, #b68b5c, #d4af37);
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 1px solid white;
+    transition: all 0.3s ease;
+}
+
+.ramadan-day-badge:hover {
+    transform: rotate(5deg) scale(1.1);
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* تنسيق اليوم الحالي بشكل مميز */
+.current-day-row {
+    background: linear-gradient(145deg, #fff9e6, #fff0d4) !important;
+    outline: 3px solid #d4af37 !important;
+    outline-offset: -2px;
+    position: relative;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #d4af37; }
+    50% { box-shadow: 0 0 20px #d4af37; }
+    100% { box-shadow: 0 0 5px #d4af37; }
+}
+
+/* إضافة علامة "اليوم" بشكل أجمل */
+.current-day-row td:first-child::after {
+    content: "✨ اليوم";
+    background: linear-gradient(45deg, #d4af37, #b68b5c);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 12px;
+    border-radius: 30px;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border: 1px solid white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* تنسيق أيام الجمعة */
 .friday-row {
-    border-right: 4px solid #27ae60;
+    background: linear-gradient(145deg, #e8f0fe, #d4e4fc) !important;
+    position: relative;
 }
 
+.friday-row td:first-child::before {
+    content: "🕌";
+    font-size: 1.2rem;
+    right: -25px;
+    opacity: 0.8;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+}
 
+.friday-text {
+    color: #0a2a44 !important;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+    font-weight: bold;
+}
+
+/* تنسيق ليلة القدر */
+.laylat-al-qadr-row {
+    background: linear-gradient(145deg, #f5e6ff, #e8d5ff) !important;
+    border-right: 8px solid #8e44ad !important;
+}
+
+.qadr-label {
+    background: linear-gradient(45deg, #8e44ad, #9b59b6) !important;
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-top: 5px;
+    box-shadow: 0 2px 8px rgba(142, 68, 173, 0.4);
+    animation: star-pulse 2s infinite;
+}
+
+@keyframes star-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* تنسيق أعمدة الفجر والمغرب */
+.fajr-col, .maghrib-col {
+    position: relative;
+    overflow: hidden;
+}
+
+.fajr-col::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    animation: wave 2s infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* تنسيق التوقيت الحالي */
+.highlight-now {
+    background: linear-gradient(45deg, #e67e22, #f39c12) !important;
+    color: white !important;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+    position: relative;
+}
+
+.highlight-now::before {
+    content: "⏰";
+    margin-left: 5px;
+    font-size: 0.9rem;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+
+/* تنسيق صلاة العيد */
+.eid-card {
+    background: linear-gradient(45deg, #d4af37, #b68b5c, #d4af37);
+    background-size: 200% 200%;
+    animation: gold-shimmer 3s ease infinite;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+    border: 2px solid white;
+    transform: rotate(-1deg);
+    transition: all 0.3s ease;
+}
+
+.eid-card:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+}
+
+/* تنسيق شريط التنبيهات */
+.notification-bar {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border: 2px solid #d4af37;
+    border-radius: 60px;
+    padding: 12px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-bar::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    animation: rotate 4s infinite linear;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* تحسين الموبايل */
+@media (max-width: 768px) {
+    .prayer-table th {
+        font-size: 0.8rem;
+        padding: 8px 2px !important;
+    }
+    
+    .prayer-table td {
+        font-size: 0.7rem;
+        padding: 8px 1px !important;
+    }
+    
+    .current-day-row td:first-child::after {
+        font-size: 0.5rem;
+        padding: 2px 6px;
+        top: -8px;
+    }
+    
+    .friday-row td:first-child::before {
+        font-size: 0.9rem;
+        right: -15px;
+    }
+    
+    .eid-card {
+        font-size: 0.7rem;
+        padding: 5px 15px;
+    }
+    
+    .qadr-label {
+        font-size: 0.5rem;
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    #imsakeya .table-container {
+        padding: 5px;
+    }
+    
+    .prayer-table th {
+        font-size: 0.65rem;
+    }
+    
+    .prayer-table td {
+        font-size: 0.55rem;
+    }
+    
+    .ramadan-day-badge {
+        padding: 2px 5px;
+        font-size: 0.6rem;
+    }
+    
+    .notification-bar {
+        padding: 8px 10px;
+    }
+}
