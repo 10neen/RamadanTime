@@ -86,45 +86,10 @@ function formatDateWithDay(dateStr) {
  * 3️⃣ دالة عرض الإمساكية الاحترافية
  * بتحديد تلقائي لليوم الحالي، أيام الجمعة، والتوقيت الحي
  ***********************/
-function renderImsakeya() {
-    const tableBody = document.querySelector("#imsakia-table tbody");
-    if (!tableBody) return;
-
-    const now = new Date();
-    const currentDay = now.getDate();
-    const currentMonth = now.getMonth() + 1; // فبراير = 2
-
-    let html = "";
-    RAMADAN_30_DAYS.forEach(day => {
-        // 1. تحديد هل اليوم هو "النهاردة"؟
-        const isToday = (currentMonth === 2 && currentDay === (18 + day.r)) || (currentMonth === 3 && day.r > 10); 
-        
-        // 2. تمييز أيام الجمعة (للتنبيهات)
-        const isFriday = day.date.includes("الجمعة");
-        
-        // 3. تمييز العشر الأواخر (ليالي القدر)
-        const isLastTen = day.r >= 21;
-
-        // بناء الصف مع الكلاسات المناسبة
-        let rowClass = "";
-        if (isToday) rowClass = "today-highlight"; // لازم تضيف تنسيق الـ CSS ده
-        if (isFriday) rowClass += " friday-row";
-
-        html += `
-            <tr class="${rowClass}" style="${isToday ? 'background: #fff9c4; border: 2px solid #d4af37;' : ''}">
-                <td><span class="ramadan-day-badge" style="${isLastTen ? 'background:#b21f1f;' : ''}">${day.r}</span></td>
-                <td style="${isFriday ? 'color:#27ae60; font-weight:bold;' : ''}">${day.date}</td>
-                <td style="font-weight:bold;">${day.f}</td>
-                <td class="shorooq-highlight">${day.s}</td> <td>${day.zh}</td>
-                <td>${day.a}</td>
-                <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
-                <td>${day.i}</td>
-            </tr>`;
-    });
-    tableBody.innerHTML = html;
-}
 
 
+
+// 1. الدالة اللي بتفهم الوقت عشان العداد يشتغل
 function convertTimeToMinutes(timeStr) {
     if (!timeStr) return 0;
     const [time, modifier] = timeStr.split(' ');
@@ -133,6 +98,82 @@ function convertTimeToMinutes(timeStr) {
     if (modifier === 'ص' && hours === 12) hours = 0;
     return hours * 60 + minutes;
 }
+
+// 2. دالة رسم الجدول (بترجعلك الجمعة وليلة القدر واليوم الحالي)
+function renderImsakeya() {
+    const tableBody = document.querySelector("#imsakia-table tbody");
+    if (!tableBody) return;
+
+    const now = new Date();
+    const currentDay = now.getDate();
+    const currentMonth = now.getMonth() + 1; // فبراير = 2، مارس = 3
+
+    let html = "";
+    RAMADAN_30_DAYS.forEach(day => {
+        // تحديد هل اليوم هو "النهاردة"؟ (19 فبراير هو 1 رمضان)
+        const isToday = (currentMonth === 2 && currentDay === (18 + day.r)) || (currentMonth === 3 && (day.r - 10) === currentDay); 
+        
+        const isFriday = day.date.includes("الجمعة");
+        const isLastTen = day.r >= 21;
+
+        html += `
+            <tr style="${isToday ? 'background: #fff9c4; border: 2px solid #d4af37;' : ''}">
+                <td>
+                    <span class="ramadan-day-badge" style="${isLastTen ? 'background:#b21f1f; color:white;' : ''}">
+                        ${day.r}
+                    </span>
+                </td>
+                <td style="${isFriday ? 'color:#b21f1f; font-weight:bold;' : ''}">${day.date}</td>
+                <td style="font-weight:bold;">${day.f}</td>
+                <td class="shorooq-highlight">${day.s}</td> 
+                <td>${day.zh}</td>
+                <td>${day.a}</td>
+                <td style="font-weight:bold; color:#b21f1f;">${day.m}</td>
+                <td>${day.i}</td>
+            </tr>`;
+    });
+    tableBody.innerHTML = html;
+}
+
+// 3. تحديث العداد التنازلي (عشان ميبقاش أصفار)
+function updateCountdown() {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // جلب بيانات أول يوم (أو عدلها لتجلب اليوم الحالي)
+    const todayData = RAMADAN_30_DAYS[0]; 
+    const prayers = [
+        { name: "الفجر", time: todayData.f },
+        { name: "المغرب", time: todayData.m }
+    ];
+
+    let next = null;
+    for (let p of prayers) {
+        let pMin = convertTimeToMinutes(p.time);
+        if (pMin > currentMinutes) {
+            next = { name: p.name, min: pMin };
+            break;
+        }
+    }
+
+    if (next) {
+        let diff = next.min - currentMinutes;
+        let h = Math.floor(diff / 60);
+        let m = diff % 60;
+        document.getElementById("next-prayer-name").innerText = `المتبقي لـ ${next.name}`;
+        document.getElementById("countdown-timer").innerText = `${h}:${m.toString().padStart(2,'0')}:00`;
+    }
+}
+
+// 4. تشغيل الكل عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    renderImsakeya();
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // تحديث كل دقيقة
+});
+
+
+
 
 
 
@@ -1293,6 +1334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateCountdown, 1000);
     }
 });
+
 
 
 
